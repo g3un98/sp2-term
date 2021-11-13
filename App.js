@@ -29,7 +29,7 @@ export default function App() {
 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'orange',
+          tabBarActiveTintColor: 'red',
           tabBarInactiveTintColor: 'gray',
         })}>
         <Tab.Screen name="Ctfs" component={CtfsScreen} />
