@@ -32,10 +32,16 @@ export default function App() {
           tabBarActiveTintColor: 'red',
           tabBarInactiveTintColor: 'gray',
         })}>
+
+        <tab.screen name="Ctfs" component={CtfsScreen} />
+        <tab.screen name="Marked" component={MarkedScreen} />
+        <tab.screen name="Search" component={SearchScreen} />
+        <tab.screen name="Settings" component={SettingsScreen} />
         <TAB.SCREEN name="Ctfs" component={CtfsScreen} />
         <Tab.Screen name="Marked" component={MarkedScreen} />
         <Tab.Screen name="Search" component={SearchScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
+
       </Tab.Navigator>
     </NavigationContainer>
   );
