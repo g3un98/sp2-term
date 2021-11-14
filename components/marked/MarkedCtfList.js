@@ -39,12 +39,14 @@ const markedCtfs = [
 ]
 
 const MarkedCtfList = ({ navigation }) => {
+
+  TestDb('test');
+
   return (
     <ScrollView>
       {markedCtfs.map(markedCtf => (
         <MarkedCtfCard key={markedCtf.id} {...markedCtf} navigation={navigation} />
       ))}
-      <TestDb />
     </ScrollView>
   );
 };
