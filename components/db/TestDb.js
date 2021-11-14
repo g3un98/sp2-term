@@ -26,20 +26,6 @@ const TestDb = (command, json_) => {
           console.log('error on creation table ' + error.message);
         },
       );
-      db.transaction(txn => {
-      txn.executeSql(
-        'CREATE TABLE IF NOT EXISTS organizers ('
-        + 'id INTEGER NOT NULL UNIQUE,'
-        + 'name TEXT NOT NULL,'
-        + 'PRIMARY KEY(id, name) )',
-        [],
-        (sqlTxn, res) => {
-          console.log('table created successfully');
-        },
-        error => {
-          console.log('error on creation table ' + error.message);
-        },
-      );
     });
   }
 
@@ -62,8 +48,7 @@ const TestDb = (command, json_) => {
         );
       });
     })
-    
-  };
+  }
   
   if(command == 'test') {
     console.log('command: '+ command);
