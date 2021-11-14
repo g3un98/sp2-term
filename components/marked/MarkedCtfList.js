@@ -38,9 +38,14 @@ const markedCtfs = [
   {"organizers": [{"id": 104940, "name": "ACISO"}], "onsite": false, "finish": "2021-11-21T09:00:00+00:00", "description": "CTF Russian Cup 2021 Quals event. Russian academic teams only.", "weight": 0, "title": "CTF Russian Cup 2021", "url": "https://aciso.timepad.ru/event/1814641/", "is_votable_now": false, "restrictions": "Academic", "format": "Jeopardy", "start": "2021-11-20T09:00:00+00:00", "participants": 8, "ctftime_url": "https://ctftime.org/event/1479/", "location": "", "live_feed": "", "public_votable": false, "duration": {"hours": 0, "days": 1}, "logo": "https://ctftime.org//media/events/cup.jpg", "format_id": 1, "id": 1479, "ctf_id": 229},
 ]
 
+const example = [{"organizers": [{"id": 104940, "name": "ACISO"}]}, {"organizers": [{"id": 30003, "name": "SPbCTF"}]}];
+
 const MarkedCtfList = ({ navigation }) => {
 
-  TestDb('test');
+  TestDb('createTables', {});
+  TestDb('addOrganizers', markedCtfs);
+  const a1 = TestDb('Nope', {});
+  console.log('return value test: ' + a1);
 
   return (
     <ScrollView>
