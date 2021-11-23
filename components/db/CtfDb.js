@@ -3,46 +3,50 @@
   2. select문 이용해서 화면에 뿌리는 함수 만들기
 */
 import * as React from 'react';
-import { openDatabase } from 'react-native-sqlite-storage';
+import {openDatabase} from 'react-native-sqlite-storage';
 
-String.prototype.format = function() {
-    var formatted = this;
-    for( var arg in arguments ) {
-        formatted = formatted.replace("{" + arg + "}", arguments[arg]);
-    }
-    return formatted;
+String.prototype.format = function () {
+  var formatted = this;
+  for (var arg in arguments) {
+    formatted = formatted.replace('{' + arg + '}', arguments[arg]);
+  }
+  return formatted;
 };
 
 const db = openDatabase({
-  name: "ctf_event",
+  name: 'ctf_event',
 });
 
 const CtfDbDrop = () => {
   db.transaction(txn => {
     sql = `
     DROP TABLE event`;
-    txn.executeSql(sql, [],
+    txn.executeSql(
+      sql,
+      [],
       (sqlTxn, res) => {
         console.log('event table drop successfully');
       },
       error => {
         console.log('error on drop table ' + error.message);
-      }
+      },
     );
   });
   db.transaction(txn => {
     sql = `
     DROP TABLE organizers`;
-    txn.executeSql(sql, [],
+    txn.executeSql(
+      sql,
+      [],
       (sqlTxn, res) => {
         console.log('organizers table drop successfully');
       },
       error => {
         console.log('error on drop table ' + error.message);
-      }
+      },
     );
   });
-}
+};
 
 const CtfDb = () => {
   console.log('CtfDb online!');
@@ -55,13 +59,15 @@ const CtfDb = () => {
       "name"	TEXT NOT NULL,
       PRIMARY KEY("id","name")
     )`;
-    txn.executeSql(sql, [],
+    txn.executeSql(
+      sql,
+      [],
       (sqlTxn, res) => {
         console.log('table "organizers" created successfully');
       },
       error => {
         console.log('error on creat table ' + error.message);
-      }
+      },
     );
   });
   db.transaction(txn => {
@@ -91,18 +97,20 @@ const CtfDb = () => {
       PRIMARY KEY("ctf_id"),
       FOREIGN KEY("oid") REFERENCES "organizers"("id")
     )`;
-    txn.executeSql(sql, [],
+    txn.executeSql(
+      sql,
+      [],
       (sqlTxn, res) => {
         console.log('table "event" created successfully');
       },
       error => {
         console.log('error on creat table ' + error.message);
-      }
+      },
     );
   });
-}
+};
 
-const CtfDbInsert = (args) => {
+const CtfDbInsert = args => {
   console.log('CtfDbInsert online!');
   let sql;
   args.map(argv => {
@@ -112,27 +120,41 @@ const CtfDbInsert = (args) => {
         {0},
         "{1}"
       )`.format(argv.organizers[0].id, argv.organizers[0].name);
-      console.log(sql)
-      txn.executeSql(sql, [],
+      console.log(sql);
+      txn.executeSql(
+        sql,
+        [],
         (sqlTxn, res) => {
           console.log('data "organizers" inserted successfully');
         },
         error => {
           console.log('error on insert table ' + error.message);
-        }
+        },
       );
     });
 
-    var onsite, duration = 0, is_votable_now, public_votable;
-    if(argv.onsite == false) onsite = 0;
-    else if(argv.onsite == true) onsite = 1;
-    if(argv.is_votable_now == false) is_votable_now = 0;
-    else if(argv.is_votable_now == true) is_votable_now = 1;
-    if(argv.public_votable == false) public_votable = 0;
-    else if(argv.is_votable_now == true) is_votable_now = 1;
+    var onsite,
+      duration = 0,
+      is_votable_now,
+      public_votable;
+    if (argv.onsite == false) {
+      onsite = 0;
+    } else if (argv.onsite == true) {
+      onsite = 1;
+    }
+    if (argv.is_votable_now == false) {
+      is_votable_now = 0;
+    } else if (argv.is_votable_now == true) {
+      is_votable_now = 1;
+    }
+    if (argv.public_votable == false) {
+      public_votable = 0;
+    } else if (argv.is_votable_now == true) {
+      is_votable_now = 1;
+    }
     duration += Number(argv.duration.hours);
     duration += Number(argv.duration.days) * 12;
-    
+
     db.transaction(txn => {
       // oid, onsite, "finish", "description", weight,
       // "title", "url", is_votable_now, "restrictions", "format"
@@ -146,23 +168,43 @@ const CtfDbInsert = (args) => {
         "{10}", {11}, "{12}", "{13}", "{14}",
         {15}, {16}, "{17}", {18}, {19},
         {20}
-      )`.format(argv.organizers[0].id, onsite, argv.finish, argv.description, argv.weight,
-                argv.title, argv.url, is_votable_now, argv.restrictions, argv.format,
-                argv.start, argv.participants, argv.ctftime_url, argv.location, argv.live_feed,
-                public_votable, duration, argv.logo, argv.format_id, argv.id,
-                argv.ctf_id);
-      console.log(sql)
-      txn.executeSql(sql, [],
+      )`.format(
+        argv.organizers[0].id,
+        onsite,
+        argv.finish,
+        argv.description,
+        argv.weight,
+        argv.title,
+        argv.url,
+        is_votable_now,
+        argv.restrictions,
+        argv.format,
+        argv.start,
+        argv.participants,
+        argv.ctftime_url,
+        argv.location,
+        argv.live_feed,
+        public_votable,
+        duration,
+        argv.logo,
+        argv.format_id,
+        argv.id,
+        argv.ctf_id,
+      );
+      console.log(sql);
+      txn.executeSql(
+        sql,
+        [],
         (sqlTxn, res) => {
           console.log('data "event" inserted successfully');
         },
         error => {
           console.log('error on insert table ' + error.message);
-        }
+        },
       );
     });
   });
-}
+};
 /*
 INSERT INTO organizers VALUES(
 	12345,
@@ -195,8 +237,4 @@ INSERT INTO event VALUES(
 )
 */
 
-
-
-export {
-  CtfDb, CtfDbInsert, CtfDbDrop,
-}
+export {CtfDb, CtfDbInsert, CtfDbDrop};
