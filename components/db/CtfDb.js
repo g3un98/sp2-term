@@ -78,24 +78,24 @@ const CtfDb = () => {
 const CtfDbInsert = (args) => {
   console.log('CtfDbInsert online!');
   let sql;
-  /*
   args.map(argv => {
-    console.log('id: ' + argv.organizers[0].id);
-    sql = `
-    INSERT INTO organizers VALUES(
-      {0},
-      {1}
-    )`;
-    txn.executeSql(sql, [],
-      (sqlTxn, res) => {
-        console.log('data "organizers" inserted successfully');
-      },
-      error => {
-        console.log('error on insert table ' + error.message);
-      }
-    );
+    db.transaction(txn => {
+      sql = `
+      INSERT INTO organizers VALUES(
+        {0},
+        "{1}"
+      )`.format(argv.organizers[0].id, argv.organizers[0].name);
+      console.log(sql)
+      txn.executeSql(sql, [],
+        (sqlTxn, res) => {
+          console.log('data "organizers" inserted successfully');
+        },
+        error => {
+          console.log('error on insert table ' + error.message);
+        }
+      );
+    });
   });
-  */
 }
 /*
 INSERT INTO organizers VALUES(
