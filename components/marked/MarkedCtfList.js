@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, ScrollView } from 'react-native';
 import MarkedCtfCard from './MarkedCtfCard';
-import { CtfDb, CtfDbInsert } from '../db/CtfDb';
+import { CtfDb, CtfDbInsert, CtfDbDrop } from '../db/CtfDb';
 
 const markedCtfs = [
   {"organizers": [{"id": 30003, "name": "SPbCTF"}], "onsite": false, "finish": "2021-11-14T18:00:00+00:00", "description": "Student CTF is a novice-level Capture The Flag organized by SPbCTF and supported by St. Petersburg Committee for Science and Higher Education.\r\n\r\nFree-to-play track is open to everyone, and Official track is for teams of 5 students in Saint Petersburg.\r\nBoth tracks are Jeopardy quals and Attack-Defense final round\u2014in separate scoreboards.\r\n\r\nFree-to-play track scoreboard will be uploaded to CTFtime.\r\n", "weight": 25.00, "title": "SPbCTF's Student CTF 2021 Finals", "url": "https://student.ctf.su/", "is_votable_now": false, "restrictions": "Prequalified", "format": "Attack-Defense", "start": "2021-11-14T09:00:00+00:00", "participants": 0, "ctftime_url": "https://ctftime.org/event/1379/", "location": "", "live_feed": "", "public_votable": true, "duration": {"hours": 9, "days": 0}, "logo": "https://ctftime.org//media/events/studentctf2021_1.jpg", "format_id": 2, "id": 1379, "ctf_id": 556},
@@ -13,6 +13,7 @@ const markedCtfs = [
 const example = [{"organizers": [{"id": 104940, "name": "ACISO"}]}, {"organizers": [{"id": 30003, "name": "SPbCTF"}]}];
 
 const MarkedCtfList = ({ navigation }) => {
+  CtfDbDrop();
   CtfDb();
   CtfDbInsert(markedCtfs);
   return (
