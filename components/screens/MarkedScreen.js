@@ -8,8 +8,8 @@ const Stack = createNativeStackNavigator();
 const MarkedScreen = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='MarkedCtfList' component={MarkedCtfList} />
-      <Stack.Screen name='MarkedCtfDetail' component={MarkedCtfDetail} />
+      <Stack.Screen name="MarkedCtfList" component={MarkedCtfList} />
+      <Stack.Screen name="MarkedCtfDetail" component={MarkedCtfDetail} />
     </Stack.Navigator>
   );
 };

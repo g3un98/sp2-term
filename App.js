@@ -17,13 +17,13 @@ export default function App() {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if(route.name === 'Ctfs') {
+            if (route.name === 'Ctfs') {
               iconName = focused ? 'flag' : 'flag-outline';
-            } else if(route.name === 'Marked') {
+            } else if (route.name === 'Marked') {
               iconName = focused ? 'bookmark' : 'bookmark-outline';
-            } else if(route.name === 'Notifications') {
+            } else if (route.name === 'Notifications') {
               iconName = focused ? 'notifications' : 'notifications-outline';
-            } else if(route.name === 'Settings') {
+            } else if (route.name === 'Settings') {
               iconName = focused ? 'settings' : 'settings-outline';
             }
 
@@ -33,10 +33,26 @@ export default function App() {
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name='Ctfs' component={CtfsScreen} options={{ headerShown: false }} />
-        <Tab.Screen name='Marked' component={MarkedScreen} options={{ headerShown: false }} />
-        <Tab.Screen name='Notifications' component={NotificationsScreen} options={{ headerShown: false, tabBarBadge: 4 }} />
-        <Tab.Screen name='Settings' component={SettingsScreen} options={{ headerShown: false }} />
+        <Tab.Screen
+          name="Ctfs"
+          component={CtfsScreen}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name="Marked"
+          component={MarkedScreen}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name="Notifications"
+          component={NotificationsScreen}
+          options={{ headerShown: false, tabBarBadge: 4 }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{ headerShown: false }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );

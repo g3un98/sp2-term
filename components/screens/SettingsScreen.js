@@ -7,7 +7,7 @@ const Stack = createNativeStackNavigator();
 const NotificationsScreen = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='SettingList' component={SettingList} />
+      <Stack.Screen name="SettingList" component={SettingList} />
     </Stack.Navigator>
   );
 };

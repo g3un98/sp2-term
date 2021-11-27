@@ -8,8 +8,8 @@ const Stack = createNativeStackNavigator();
 const CtfsScreen = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='CtfList' component={CtfList} />
-      <Stack.Screen name='CtfDetail' component={CtfDetail} />
+      <Stack.Screen name="CtfList" component={CtfList} />
+      <Stack.Screen name="CtfDetail" component={CtfDetail} />
     </Stack.Navigator>
   );
 };
