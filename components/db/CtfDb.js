@@ -191,8 +191,6 @@ INSERT INTO event VALUES(
 )
 */
 
-
-
 export {
   CtfDb, CtfDbInsert, CtfDbDrop,
 }
