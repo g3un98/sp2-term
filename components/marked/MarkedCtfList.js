@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {Text, ScrollView} from 'react-native';
+import { Text, ScrollView } from 'react-native';
 import MarkedCtfCard from './MarkedCtfCard';
-import {CtfDb, CtfDbInsert, CtfDbDrop} from '../db/CtfDb';
+import { CtfDb, CtfDbInsert, CtfDbDrop } from '../db/CtfDb';
 
 const markedCtfs = [
   {
@@ -131,7 +131,7 @@ const markedCtfs = [
   },
 ];
 
-const MarkedCtfList = ({navigation}) => {
+const MarkedCtfList = ({ navigation }) => {
   CtfDbDrop();
   CtfDb();
   CtfDbInsert(markedCtfs);
