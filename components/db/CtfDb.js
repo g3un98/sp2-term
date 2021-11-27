@@ -1,7 +1,3 @@
-/* TODO
-  1. 문자열 포맷팅 이용해서 organizers와 event insert문 만들기
-  2. select문 이용해서 화면에 뿌리는 함수 만들기
-*/
 import * as React from 'react';
 import { openDatabase } from 'react-native-sqlite-storage';
 
@@ -129,7 +125,7 @@ const CtfDbInsert = (args) => {
     if(argv.is_votable_now == false) is_votable_now = 0;
     else if(argv.is_votable_now == true) is_votable_now = 1;
     if(argv.public_votable == false) public_votable = 0;
-    else if(argv.is_votable_now == true) is_votable_now = 1;
+    else if(argv.public_votable == true) public_votable = 1;
     duration += Number(argv.duration.hours);
     duration += Number(argv.duration.days) * 12;
     
