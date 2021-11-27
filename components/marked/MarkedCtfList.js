@@ -27,14 +27,14 @@ const markedCtfs = [
     location: '',
     live_feed: 'https://ctftime.org/live/1454/',
     public_votable: true,
-    duration: {hours: 0, days: 2},
+    duration: { hours: 0, days: 2 },
     logo: 'https://ctftime.org//media/events/intent_i.png',
     format_id: 1,
     id: 1454,
     ctf_id: 672,
   },
   {
-    organizers: [{id: 30003, name: 'SPbCTF'}],
+    organizers: [{ id: 30003, name: 'SPbCTF' }],
     onsite: false,
     finish: '2021-11-14T18:00:00+00:00',
     description:
@@ -51,14 +51,14 @@ const markedCtfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 9, days: 0},
+    duration: { hours: 9, days: 0 },
     logo: 'https://ctftime.org//media/events/studentctf2021_1.jpg',
     format_id: 2,
     id: 1379,
     ctf_id: 556,
   },
   {
-    organizers: [{id: 19208, name: 'Nu1L'}],
+    organizers: [{ id: 19208, name: 'Nu1L' }],
     onsite: false,
     finish: '2021-11-22T00:00:00+00:00',
     description:
@@ -75,14 +75,14 @@ const markedCtfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 0, days: 2},
+    duration: { hours: 0, days: 2 },
     logo: '',
     format_id: 1,
     id: 1367,
     ctf_id: 240,
   },
   {
-    organizers: [{id: 16978, name: 'Balsn'}],
+    organizers: [{ id: 16978, name: 'Balsn' }],
     onsite: false,
     finish: '2021-11-22T02:00:00+00:00',
     description:
@@ -99,14 +99,14 @@ const markedCtfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 0, days: 2},
+    duration: { hours: 0, days: 2 },
     logo: 'https://ctftime.org//media/events/circle.400dpi_2.png',
     format_id: 1,
     id: 1376,
     ctf_id: 318,
   },
   {
-    organizers: [{id: 104940, name: 'ACISO'}],
+    organizers: [{ id: 104940, name: 'ACISO' }],
     onsite: false,
     finish: '2021-11-21T09:00:00+00:00',
     description:
@@ -123,7 +123,7 @@ const markedCtfs = [
     location: '',
     live_feed: '',
     public_votable: false,
-    duration: {hours: 0, days: 1},
+    duration: { hours: 0, days: 1 },
     logo: 'https://ctftime.org//media/events/cup.jpg',
     format_id: 1,
     id: 1479,
@@ -137,7 +137,7 @@ const MarkedCtfList = ({ navigation }) => {
   CtfDbInsert(markedCtfs);
   return (
     <ScrollView>
-      {markedCtfs.map(markedCtf => (
+      {markedCtfs.map((markedCtf) => (
         <MarkedCtfCard
           key={markedCtf.id}
           {...markedCtf}

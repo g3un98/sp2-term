@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CtfList from '../ctfs/CtfList';
 import CtfDetail from '../ctfs/CtfDetail';
 

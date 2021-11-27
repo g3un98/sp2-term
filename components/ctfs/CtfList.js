@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ScrollView} from 'react-native';
+import { ScrollView } from 'react-native';
 import CtfCard from './CtfCard';
 
 const ctfs = [
@@ -26,14 +26,14 @@ const ctfs = [
     location: '',
     live_feed: 'https://ctftime.org/live/1454/',
     public_votable: true,
-    duration: {hours: 0, days: 2},
+    duration: { hours: 0, days: 2 },
     logo: 'https://ctftime.org//media/events/intent_i.png',
     format_id: 1,
     id: 1454,
     ctf_id: 672,
   },
   {
-    organizers: [{id: 30003, name: 'SPbCTF'}],
+    organizers: [{ id: 30003, name: 'SPbCTF' }],
     onsite: false,
     finish: '2021-11-14T18:00:00+00:00',
     description:
@@ -50,14 +50,14 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 9, days: 0},
+    duration: { hours: 9, days: 0 },
     logo: 'https://ctftime.org//media/events/studentctf2021_1.jpg',
     format_id: 2,
     id: 1379,
     ctf_id: 556,
   },
   {
-    organizers: [{id: 2003, name: 'SYPER'}],
+    organizers: [{ id: 2003, name: 'SYPER' }],
     onsite: false,
     finish: '2021-11-18T18:00:00+00:00',
     description:
@@ -74,14 +74,14 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: false,
-    duration: {hours: 0, days: 1},
+    duration: { hours: 0, days: 1 },
     logo: '',
     format_id: 1,
     id: 1489,
     ctf_id: 653,
   },
   {
-    organizers: [{id: 125608, name: 'Hackfest.ca'}],
+    organizers: [{ id: 125608, name: 'Hackfest.ca' }],
     onsite: false,
     finish: '2021-11-20T08:00:00+00:00',
     description:
@@ -98,14 +98,14 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 12, days: 0},
+    duration: { hours: 12, days: 0 },
     logo: 'https://ctftime.org//media/events/Logo_CTF_5.png',
     format_id: 1,
     id: 1498,
     ctf_id: 473,
   },
   {
-    organizers: [{id: 19208, name: 'Nu1L'}],
+    organizers: [{ id: 19208, name: 'Nu1L' }],
     onsite: false,
     finish: '2021-11-22T00:00:00+00:00',
     description:
@@ -122,14 +122,14 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 0, days: 2},
+    duration: { hours: 0, days: 2 },
     logo: '',
     format_id: 1,
     id: 1367,
     ctf_id: 240,
   },
   {
-    organizers: [{id: 46747, name: 'Square'}],
+    organizers: [{ id: 46747, name: 'Square' }],
     onsite: false,
     finish: '2021-11-21T01:00:00+00:00',
     description:
@@ -146,14 +146,14 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 0, days: 1},
+    duration: { hours: 0, days: 1 },
     logo: '',
     format_id: 1,
     id: 1496,
     ctf_id: 218,
   },
   {
-    organizers: [{id: 16978, name: 'Balsn'}],
+    organizers: [{ id: 16978, name: 'Balsn' }],
     onsite: false,
     finish: '2021-11-22T02:00:00+00:00',
     description:
@@ -170,14 +170,14 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 0, days: 2},
+    duration: { hours: 0, days: 2 },
     logo: 'https://ctftime.org//media/events/circle.400dpi_2.png',
     format_id: 1,
     id: 1376,
     ctf_id: 318,
   },
   {
-    organizers: [{id: 104940, name: 'ACISO'}],
+    organizers: [{ id: 104940, name: 'ACISO' }],
     onsite: false,
     finish: '2021-11-21T09:00:00+00:00',
     description:
@@ -194,14 +194,14 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: false,
-    duration: {hours: 0, days: 1},
+    duration: { hours: 0, days: 1 },
     logo: 'https://ctftime.org//media/events/cup.jpg',
     format_id: 1,
     id: 1479,
     ctf_id: 229,
   },
   {
-    organizers: [{id: 158405, name: 'LowLandMink543'}],
+    organizers: [{ id: 158405, name: 'LowLandMink543' }],
     onsite: false,
     finish: '2021-11-27T19:00:00+00:00',
     description:
@@ -218,14 +218,14 @@ const ctfs = [
     location: '',
     live_feed: 'https://ctftime.org/live/1478/',
     public_votable: false,
-    duration: {hours: 0, days: 4},
+    duration: { hours: 0, days: 4 },
     logo: '',
     format_id: 1,
     id: 1478,
     ctf_id: 651,
   },
   {
-    organizers: [{id: 162693, name: 'DSPH'}],
+    organizers: [{ id: 162693, name: 'DSPH' }],
     onsite: false,
     finish: '2021-11-25T12:00:00+00:00',
     description:
@@ -242,14 +242,14 @@ const ctfs = [
     location: '',
     live_feed: 'https://ctftime.org/live/1481/',
     public_votable: true,
-    duration: {hours: 0, days: 1},
+    duration: { hours: 0, days: 1 },
     logo: 'https://ctftime.org//media/events/1179a90577b0595b40de0924d9a6d9da372098_prev_ui.png',
     format_id: 1,
     id: 1481,
     ctf_id: 684,
   },
   {
-    organizers: [{id: 9831, name: 'CCSIR.org'}],
+    organizers: [{ id: 9831, name: 'CCSIR.org' }],
     onsite: false,
     finish: '2021-11-28T15:00:00+00:00',
     description:
@@ -266,14 +266,14 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 6, days: 2},
+    duration: { hours: 6, days: 2 },
     logo: 'https://ctftime.org//media/events/dctf_2.png',
     format_id: 1,
     id: 1502,
     ctf_id: 73,
   },
   {
-    organizers: [{id: 140885, name: 'The Few Chosen'}],
+    organizers: [{ id: 140885, name: 'The Few Chosen' }],
     onsite: false,
     finish: '2021-11-28T12:00:00+00:00',
     description:
@@ -290,14 +290,14 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 0, days: 2},
+    duration: { hours: 0, days: 2 },
     logo: 'https://ctftime.org//media/events/discord_logo.png',
     format_id: 1,
     id: 1501,
     ctf_id: 696,
   },
   {
-    organizers: [{id: 144070, name: 'Securebug'}],
+    organizers: [{ id: 144070, name: 'Securebug' }],
     onsite: false,
     finish: '2021-11-28T14:00:00+00:00',
     description:
@@ -314,14 +314,14 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 0, days: 2},
+    duration: { hours: 0, days: 2 },
     logo: '',
     format_id: 1,
     id: 1448,
     ctf_id: 586,
   },
   {
-    organizers: [{id: 48677, name: 'RedRocket'}],
+    organizers: [{ id: 48677, name: 'RedRocket' }],
     onsite: false,
     finish: '2021-11-28T20:00:00+00:00',
     description:
@@ -338,14 +338,14 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 0, days: 2},
+    duration: { hours: 0, days: 2 },
     logo: 'https://ctftime.org//media/events/social_chall_second_2.png',
     format_id: 1,
     id: 1429,
     ctf_id: 159,
   },
   {
-    organizers: [{id: 8241, name: 'ISITDTU'}],
+    organizers: [{ id: 8241, name: 'ISITDTU' }],
     onsite: false,
     finish: '2021-11-28T00:00:00+00:00',
     description:
@@ -362,14 +362,14 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 0, days: 1},
+    duration: { hours: 0, days: 1 },
     logo: 'https://ctftime.org//media/events/logo_43_1.gif',
     format_id: 1,
     id: 1464,
     ctf_id: 258,
   },
   {
-    organizers: [{id: 3329, name: 'Dragon Sector'}],
+    organizers: [{ id: 3329, name: 'Dragon Sector' }],
     onsite: false,
     finish: '2021-11-28T12:00:00+00:00',
     description:
@@ -386,14 +386,14 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 0, days: 1},
+    duration: { hours: 0, days: 1 },
     logo: 'https://ctftime.org//media/events/avatar_3_1.jpg',
     format_id: 1,
     id: 1457,
     ctf_id: 103,
   },
   {
-    organizers: [{id: 60467, name: 'pwnthem0le'}],
+    organizers: [{ id: 60467, name: 'pwnthem0le' }],
     onsite: true,
     finish: '2021-12-03T20:00:00+00:00',
     description:
@@ -410,14 +410,14 @@ const ctfs = [
     location: 'Italy, Turin',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 0, days: 1},
+    duration: { hours: 0, days: 1 },
     logo: 'https://ctftime.org//media/events/43934324789e71551206c5fe87cacb84.png',
     format_id: 1,
     id: 1456,
     ctf_id: 372,
   },
   {
-    organizers: [{id: 285, name: 'Shellphish'}],
+    organizers: [{ id: 285, name: 'Shellphish' }],
     onsite: false,
     finish: '2021-12-03T23:00:00+00:00',
     description:
@@ -434,14 +434,14 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 9, days: 0},
+    duration: { hours: 9, days: 0 },
     logo: 'https://ctftime.org//media/events/shellphish_logo.png',
     format_id: 2,
     id: 1339,
     ctf_id: 5,
   },
   {
-    organizers: [{id: 72254, name: 'MetaCTF'}],
+    organizers: [{ id: 72254, name: 'MetaCTF' }],
     onsite: false,
     finish: '2021-12-05T20:00:00+00:00',
     description:
@@ -458,14 +458,14 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 0, days: 2},
+    duration: { hours: 0, days: 2 },
     logo: 'https://ctftime.org//media/events/MainM6_1.png',
     format_id: 1,
     id: 1476,
     ctf_id: 500,
   },
   {
-    organizers: [{id: 8299, name: 'HITCON'}],
+    organizers: [{ id: 8299, name: 'HITCON' }],
     onsite: false,
     finish: '2021-12-05T14:00:00+00:00',
     description: '',
@@ -481,7 +481,7 @@ const ctfs = [
     location: '',
     live_feed: '',
     public_votable: true,
-    duration: {hours: 12, days: 1},
+    duration: { hours: 12, days: 1 },
     logo: 'https://ctftime.org//media/events/hitcon2_5.png',
     format_id: 1,
     id: 1460,
@@ -489,10 +489,10 @@ const ctfs = [
   },
 ];
 
-const CtfList = ({navigation}) => {
+const CtfList = ({ navigation }) => {
   return (
     <ScrollView>
-      {ctfs.map(ctf => (
+      {ctfs.map((ctf) => (
         <CtfCard key={ctf.id} {...ctf} navigation={navigation} />
       ))}
     </ScrollView>

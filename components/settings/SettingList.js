@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ScrollView, Text} from 'react-native';
+import { ScrollView, Text } from 'react-native';
 
 const settings = [
   {
@@ -16,10 +16,10 @@ const settings = [
   },
 ];
 
-const SettingList = ({navigation}) => {
+const SettingList = ({ navigation }) => {
   return (
     <ScrollView>
-      {settings.map(setting => (
+      {settings.map((setting) => (
         <Text key={setting.title}>{setting.title}</Text>
       ))}
     </ScrollView>

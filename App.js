@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {Text, View} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CtfsScreen from './components/screens/CtfsScreen';
 import MarkedScreen from './components/screens/MarkedScreen';
@@ -13,8 +13,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={({route}) => ({
-          tabBarIcon: ({focused, color, size}) => {
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
             if (route.name === 'Ctfs') {
@@ -31,26 +31,27 @@ export default function App() {
           },
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',
-        })}>
+        })}
+      >
         <Tab.Screen
           name="Ctfs"
           component={CtfsScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Tab.Screen
           name="Marked"
           component={MarkedScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Tab.Screen
           name="Notifications"
           component={NotificationsScreen}
-          options={{headerShown: false, tabBarBadge: 4}}
+          options={{ headerShown: false, tabBarBadge: 4 }}
         />
         <Tab.Screen
           name="Settings"
           component={SettingsScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
       </Tab.Navigator>
     </NavigationContainer>

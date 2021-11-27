@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ScrollView} from 'react-native';
+import { ScrollView } from 'react-native';
 import NotificationCard from './NotificationCard';
 
 const notificaions = [
@@ -21,10 +21,10 @@ const notificaions = [
   },
 ];
 
-const NotificationList = ({navigation}) => {
+const NotificationList = ({ navigation }) => {
   return (
     <ScrollView>
-      {notificaions.map(notificaion => (
+      {notificaions.map((notificaion) => (
         <NotificationCard
           key={notificaion.id}
           {...notificaion}
