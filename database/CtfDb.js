@@ -129,11 +129,13 @@ export const InsertCtfDb = (ctf_array) => {
     duration += Number(ctf.duration.days) * 12;
 
     _ctf_db.transaction((txn) => {
-      // oid, onsite, "finish", "description", weight,
-      // "title", "url", is_votable_now, "restrictions", "format"
-      // "start", participants, "ctftime_url", "location", "live_feed"
-      // public_votable, duration, "logo", format_id, id
-      // ctf_id
+      /*
+       * oid, onsite, "finish", "description", weight,
+       * "title", "url", is_votable_now, "restrictions", "format"
+       * "start", participants, "ctftime_url", "location", "live_feed"
+       * public_votable, duration, "logo", format_id, id
+       * ctf_id
+      **/
       sql = `
         INSERT INTO event VALUES(
           ${ctf.organizers[0].id},
