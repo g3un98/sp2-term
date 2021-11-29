@@ -13,7 +13,7 @@ import DebugScreen from "./components/screens/DebugScreen";
 /* -------------------------------------------------------- */
 
 /* -------------- Import for Test && Debug ---------------- */
-import DebugScreen from './components/screens/DebugScreen';
+import DebugScreen from "./components/screens/DebugScreen";
 /* -------------------------------------------------------- */
 
 const Tab = createBottomTabNavigator();
