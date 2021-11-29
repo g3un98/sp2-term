@@ -8,6 +8,10 @@ import MarkedScreen from './components/screens/MarkedScreen';
 import NotificationsScreen from './components/screens/NotificationsScreen';
 import SettingsScreen from './components/screens/SettingsScreen';
 
+/* -------------- Import for Test && Debug ---------------- */
+import DebugScreen from './components/screens/DebugScreen';
+/* -------------------------------------------------------- */
+
 const Tab = createBottomTabNavigator();
 export default function App() {
   return (
@@ -25,6 +29,8 @@ export default function App() {
               iconName = focused ? 'notifications' : 'notifications-outline';
             } else if (route.name === 'Settings') {
               iconName = focused ? 'settings' : 'settings-outline';
+            } else if (route.name === 'Debug') {
+              iconName = focused ? 'checkcircle' : 'checkcircleo';
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -51,6 +57,11 @@ export default function App() {
         <Tab.Screen
           name="Settings"
           component={SettingsScreen}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name="Debug"
+          component={DebugScreen}
           options={{ headerShown: false }}
         />
       </Tab.Navigator>

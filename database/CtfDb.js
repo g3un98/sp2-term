@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { openDatabase } from 'react-native-sqlite-storage';
 
+
 const _ctf_db = openDatabase({ name: "ctf_db" });
 
 // Drop "event", "organizer" tables
