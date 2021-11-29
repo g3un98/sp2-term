@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { Button, View, ScrollView, Text } from 'react-native';
+import * as React from "react";
+import { Button, View, ScrollView, Text } from "react-native";
 /* -------------- Import for Test && Debug ---------------- */
-import { fetchCtfInfo } from '../../api/fetch';
-import { dropCtfDb, createCtfDb } from '../../database/CtfDb';
+import { fetchCtfInfo } from "../../api/fetch";
+import { dropCtfDb, createCtfDb } from "../../database/CtfDb";
 /* -------------------------------------------------------- */
 
 const DebugPage = ({ navigation }) => {

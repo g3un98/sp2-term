@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import DebugPage from '../debug/debug';
+import * as React from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import DebugPage from "../debug/debug";
 
 const Stack = createNativeStackNavigator();
 

@@ -14,4 +14,3 @@ export const fetchCtfInfo = async (startTime, finishTime) => {
   // console.log(ctfInfoJsonList);
   insertCtfDb(ctfInfoJsonList);
 }
-
