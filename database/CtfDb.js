@@ -1,20 +1,21 @@
 import * as React from 'react';
 import { openDatabase } from 'react-native-sqlite-storage';
 
-const _ctf_db = openDatabase({ name: "ctf_event" });
+
+const _ctf_db = openDatabase({ name: "ctf_db" });
 
 // Drop "event", "organizer" tables
-export const DropCtfDb = () => {
+export const dropCtfDb = () => {
   _ctf_db.transaction((txn) => {
     sql = `DROP TABLE event`;
     txn.executeSql(
       sql,
       [],
       (sqlTxn, res) => {
-        console.log(`[DropCtfDb] drop event table successfully`);
+        console.log(`[dropCtfDb] drop event table successfully`);
       },
       (error) => {
-        console.log(`[DropCtfDb] drop event table failed: ${error.message}`);
+        console.log(`[dropCtfDb] drop event table failed: ${error.message}`);
       },
     );
   });
@@ -24,17 +25,17 @@ export const DropCtfDb = () => {
       sql,
       [],
       (sqlTxn, res) => {
-        console.log(`[DropCtfDb] drop organizer table successfully`);
+        console.log(`[dropCtfDb] drop organizer table successfully`);
       },
       (error) => {
-        console.log(`[DropCtfDb] drop organizer table failed: ${error.message}`);
+        console.log(`[dropCtfDb] drop organizer table failed: ${error.message}`);
       },
     );
   });
 };
 
 // Create "event", "organizer" tables
-export const InitCtfDb = () => {
+export const createCtfDb = () => {
   let sql;
 
   _ctf_db.transaction((txn) => {
@@ -49,10 +50,10 @@ export const InitCtfDb = () => {
       sql,
       [],
       (sqlTxn, res) => {
-        console.log(`[InitCtfDb] create organizer table successfully`);
+        console.log(`[createCtfDb] create organizer table successfully`);
       },
       (error) => {
-        console.log(`[InitCtfDb] create organizer table failed: ${error.message}`);
+        console.log(`[createCtfDb] create organizer table failed: ${error.message}`);
       },
     );
   });
@@ -88,17 +89,27 @@ export const InitCtfDb = () => {
       sql,
       [],
       (sqlTxn, res) => {
-        console.log(`[InitCtfDb] create event table successfully`);
+        console.log(`[createCtfDb] create event table successfully`);
       },
       (error) => {
-        console.log(`[InitCtfDb] create event table failed: ${error.message}`);
+        console.log(`[createCtfDb] create event table failed: ${error.message}`);
       },
     );
   });
 };
 
+// Init "event", "organizer" tables
+export const initCtfDb = () => {
+  try {
+    createCtfDb();
+  } catch (error) {
+    // tables are alreay exist
+    // -> do nothing
+  }
+};
+
 // Inseart data into "event", "organizer" tables
-export const InsertCtfDb = (ctf_array) => {
+export const insertCtfDb = (ctf_array) => {
   let sql;
 
   ctf_array.map((ctf) => {
@@ -113,10 +124,10 @@ export const InsertCtfDb = (ctf_array) => {
         sql,
         [],
         (sqlTxn, res) => {
-          console.log(`[InsertCtfDb] insert organizer data successfully`);
+          console.log(`[insertCtfDb] insert organizer data successfully`);
         },
         (error) => {
-          console.log(`[InsertCtfDb] insert organizer data failed: ${error.message}`);
+          console.log(`[insertCtfDb] insert organizer data failed: ${error.message}`);
         },
       );
     });
@@ -133,8 +144,7 @@ export const InsertCtfDb = (ctf_array) => {
        * oid, onsite, "finish", "description", weight,
        * "title", "url", is_votable_now, "restrictions", "format"
        * "start", participants, "ctftime_url", "location", "live_feed"
-       * public_votable, duration, "logo", format_id, id
-       * ctf_id
+       * public_votable, duration, "logo", format_id, id, ctf_id
       **/
       sql = `
         INSERT INTO event VALUES(
@@ -165,10 +175,10 @@ export const InsertCtfDb = (ctf_array) => {
         sql,
         [],
         (sqlTxn, res) => {
-          console.log(`[InsertCtfDb] insert event data successfully`);
+          console.log(`[insertCtfDb] insert event data successfully`);
         },
         (error) => {
-          console.log(`[InsertCtfDb] insert event data failed: ${error.message}`);
+          console.log(`[insertCtfDb] insert event data failed: ${error.message}`);
         },
       );
     });
