@@ -1,17 +1,17 @@
 import fetch from "node-fetch";
-import { InsertCtfDb } from "../database/CtfDb";
+import { insertCtfDb } from "../database/CtfDb";
 
-export const FetchCtfInfo = async (startTime, finishTime) => { 
+export const fetchCtfInfo = async (startTime, finishTime) => { 
   console.log("[FetchCtfInfo] Fetch && DB Insert Test Start");
-  const GetJsonData = url => {
+  const getJsonData = url => {
     return fetch(url)
       .then(res => res.json());
   }
 
-  let Url = `https://ctftime.org/api/v1/events/?limit=500&start=${startTime}&finish=${finishTime}`;
+  let URL = `https://ctftime.org/api/v1/events/?limit=5&start=${startTime}&finish=${finishTime}`;
 
-  let ctfInfoJsonList = await GetJsonData(Url);
+  let ctfInfoJsonList = await getJsonData(URL);
   // console.log(ctfInfoJsonList);
-  InsertCtfDb(ctfInfoJsonList);
+  insertCtfDb(ctfInfoJsonList);
 }
 

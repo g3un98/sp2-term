@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Button, View, ScrollView, Text } from 'react-native';
 /* -------------- Import for Test && Debug ---------------- */
-import { FetchCtfInfo } from '../../api/fetch';
-import { DropCtfDb, InitCtfDb } from '../../database/CtfDb.js';
+import { fetchCtfInfo } from '../../api/fetch';
+import { dropCtfDb, createCtfDb } from '../../database/CtfDb';
 /* -------------------------------------------------------- */
 
 const DebugPage = ({ navigation }) => {
@@ -13,9 +13,9 @@ const DebugPage = ({ navigation }) => {
         title="Debug start"
         onPress={() => {
           /* ----- For test && debug ----- */
-          DropCtfDb();
-          InitCtfDb();
-          FetchCtfInfo(); 
+          dropCtfDb();
+          createCtfDb();
+          fetchCtfInfo(); 
           /* ----------------------------- */
         }} />
     </View>
