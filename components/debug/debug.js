@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { Button, View, ScrollView, Text } from 'react-native';
+import * as React from "react";
+import { Button, View, ScrollView, Text } from "react-native";
 /* -------------- Import for Test && Debug ---------------- */
-import { FetchCtfInfo } from '../../api/fetch';
-import { DropCtfDb, InitCtfDb } from '../../database/CtfDb.js';
+import { FetchCtfInfo } from "../../api/fetch";
+import { DropCtfDb, InitCtfDb } from "../../database/CtfDb.js";
 /* -------------------------------------------------------- */
 
 const DebugPage = ({ navigation }) => {
@@ -15,9 +15,10 @@ const DebugPage = ({ navigation }) => {
           /* ----- For test && debug ----- */
           DropCtfDb();
           InitCtfDb();
-          FetchCtfInfo(); 
+          FetchCtfInfo();
           /* ----------------------------- */
-        }} />
+        }}
+      />
     </View>
   );
 };
