@@ -15,9 +15,10 @@ const DebugPage = ({ navigation }) => {
           /* ----- For test && debug ----- */
           dropCtfDb();
           createCtfDb();
-          fetchCtfInfo(); 
+          fetchCtfInfo();
           /* ----------------------------- */
-        }} />
+        }}
+      />
     </View>
   );
 };
