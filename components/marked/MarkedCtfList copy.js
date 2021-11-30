@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { ScrollView } from 'react-native';
-import MarkedCtfCard from './MarkedCtfCard';
+import * as React from "react";
+import { ScrollView } from "react-native";
+import MarkedCtfCard from "./MarkedCtfCard";
 
 const markedCtfs = [
   {

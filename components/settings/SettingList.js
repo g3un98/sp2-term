@@ -1,18 +1,18 @@
-import * as React from 'react';
-import { ScrollView, Text } from 'react-native';
+import * as React from "react";
+import { ScrollView, Text } from "react-native";
 
 const settings = [
   {
-    title: 'filter',
+    title: "filter",
   },
   {
-    title: 'ctftime account',
+    title: "ctftime account",
   },
   {
-    title: 'dreamhack account',
+    title: "dreamhack account",
   },
   {
-    title: 'blah blah',
+    title: "blah blah",
   },
 ];
 
