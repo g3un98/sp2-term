@@ -9,12 +9,12 @@ let initFlag = false;
 
 const CtfList = ({ navigation }) => {
   const [ctfs, updateCtfs] = useState([]);
-  
+
   const updateCtfList = async (startTime) => {
     // update database and call database select function -> ctfs = select(???)
-    let newCtfList = await fetchCtfInfo(startTime=startTime);
+    let newCtfList = await fetchCtfInfo((startTime = startTime));
     updateCtfs(newCtfList);
-  }
+  };
 
   if (!initFlag) {
     initFlag = true;
@@ -27,7 +27,7 @@ const CtfList = ({ navigation }) => {
         <CtfCard key={ctf.id} {...ctf} navigation={navigation} />
       ))}
     </ScrollView>
-    
+
     // need refresh function
   );
 };

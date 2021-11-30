@@ -16,10 +16,10 @@ const MarkedCtfCard = (props) => {
     deleteMarkedCtfs(tmpMarkedCtfs);
     */
     props.deleteMarkedCtfs(id);
-  }
+  };
 
   return (
-    <View 
+    <View
       style={{
         flex: 1,
         justifyContent: "center",
@@ -30,12 +30,14 @@ const MarkedCtfCard = (props) => {
       <Text>{props.title}!</Text>
       <Button
         title="Get detail"
-        onPress={() => props.navigation.navigate("MarkedCtfDetail", { id: props.id })}
+        onPress={() =>
+          props.navigation.navigate("MarkedCtfDetail", { id: props.id })
+        }
       />
       <Button
         title="Delete"
         onPress={() => {
-          deleteMarkedCtf(props.id); 
+          deleteMarkedCtf(props.id);
         }}
       />
     </View>

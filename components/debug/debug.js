@@ -23,7 +23,7 @@ const DebugPage = ({ navigation }) => {
         }}
       />
       <Button
-        title={ color }
+        title={color}
         onPress={() => {
           onClickChange();
         }}
