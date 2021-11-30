@@ -10,6 +10,7 @@ export const fetchCtfInfo = async (startTime, finishTime) => {
   let URL = `https://ctftime.org/api/v1/events/?limit=500&start=${startTime}&finish=${finishTime}`;
 
   let ctfInfoJsonList = await getJsonData(URL);
-  // console.log(ctfInfoJsonList);
   insertCtfDb(ctfInfoJsonList);
+
+  return ctfInfoJsonList;
 };
