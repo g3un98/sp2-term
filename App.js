@@ -12,10 +12,6 @@ import SettingsScreen from "./components/screens/SettingsScreen";
 import DebugScreen from "./components/screens/DebugScreen";
 /* -------------------------------------------------------- */
 
-/* -------------- Import for Test && Debug ---------------- */
-import DebugScreen from "./components/screens/DebugScreen";
-/* -------------------------------------------------------- */
-
 const Tab = createBottomTabNavigator();
 export default function App() {
   return (
