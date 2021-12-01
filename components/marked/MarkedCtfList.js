@@ -15,7 +15,7 @@ const MarkedCtfList = ({ navigation }) => {
     console.log(`Delete ID: ${target_id}`);
 
     // database delete function add
-    updateMarkedCtfs(markedCtfs.filter(({ id }) => id != target_id ));
+    updateMarkedCtfs(markedCtfs.filter(({ id }) => id != target_id));
     forceUpdate();
   };
 
