@@ -5,17 +5,14 @@ const _ctf_db = openDatabase({ name: "ctf_db" });
 
 const _createOrgainzerTable = () => {
   _ctf_db.transaction((txn) => {
-    const sql = `
-      CREATE TABLE "organizer" (
+    txn.executeSql(
+      `CREATE TABLE "organizer" (
         "id"    INTEGER  NOT NULL  UNIQUE,
         "name"	TEXT     NOT NULL,
         PRIMARY KEY("id", "name")
-      )
-    `;
-    txn.executeSql(
-      sql,
+      )`,
       [],
-      (sqlTxn, res) => {
+      (_, res) => {
         console.log("create organizer table successfully");
       },
       (error) => {
@@ -27,8 +24,8 @@ const _createOrgainzerTable = () => {
 
 const _createEventTable = () => {
   _ctf_db.transaction((txn) => {
-    const sql = `
-      CREATE TABLE "event" (
+    txn.executeSql(
+      `CREATE TABLE "event" (
         "oid"             INTEGER  NOT NULL  UNIQUE,
         "onsite"          INTEGER  NOT NULL,
         "finish"          TEXT,
@@ -53,12 +50,9 @@ const _createEventTable = () => {
         PRIMARY           KEY("ctf_id"),
         FOREIGN           KEY("oid")
         REFERENCES        "organizer"("id")
-      )
-    `;
-    txn.executeSql(
-      sql,
+      )`,
       [],
-      (sqlTxn, res) => {
+      (_, res) => {
         console.log("create event table successfully");
       },
       (error) => {
@@ -70,11 +64,10 @@ const _createEventTable = () => {
 
 const _dropEventTable = () => {
   _ctf_db.transaction((txn) => {
-    const sql = "DROP TABLE event";
     txn.executeSql(
-      sql,
+      "DROP TABLE event",
       [],
-      (sqlTxn, res) => {
+      (_, res) => {
         console.log("drop event table successfully");
       },
       (error) => {
@@ -86,11 +79,10 @@ const _dropEventTable = () => {
 
 const _dropOrganiverTable = () => {
   _ctf_db.transaction((txn) => {
-    const sql = "DROP TABLE organizer";
     txn.executeSql(
-      sql,
+      "DROP TABLE organizer",
       [],
-      (sqlTxn, res) => {
+      (_, res) => {
         console.log("drop organizer table successfully");
       },
       (error) => {
@@ -103,16 +95,13 @@ const _dropOrganiverTable = () => {
 const _insertOrganizerTable = (organizers) => {
   organizers.map((organizer) => {
     _ctf_db.transaction((txn) => {
-      const sql = `
-        INSERT INTO organizer VALUES(
-          ${organizer.id},
-          "${organizer.name}"
-        )
-      `;
       txn.executeSql(
-        sql,
+        `INSERT INTO organizer VALUES(
+          ${organizer.id},
+          "${organizer.name.replaceall('\"', '\\\"')}"
+        )`,
         [],
-        (sqlTxn, res) => {
+        (_, res) => {
           console.log("insert organizer data successfully");
         },
         (error) => {
@@ -129,35 +118,32 @@ const _insertEventTable = (event) => {
     duration += Number(event.duration.days) * 12;
 
     _ctf_db.transaction((txn) => {
-      const sql = `
-        INSERT INTO event VALUES(
+      txn.executeSql(
+        `INSERT INTO event VALUES(
           ${event.organizers[0].id},
           ${event.onsite ? 1 : 0},
-          "${event.finish}",
+          "${event.finish.replaceall('\"', '\\\"')}",
           "${event.description.replaceall('\"', '\\\"')}",
           ${event.weight},
-          "${event.title}",
-          "${event.url}",
+          "${event.title.replaceall('\"', '\\\"')}",
+          "${event.url.replaceall('\"', '\\\"')}",
           ${event.is_votable_now ? 1 : 0},
-          "${event.restrictions}",
-          "${event.format}",
-          "${event.start}",
+          "${event.restrictions.replaceall('\"', '\\\"')}",
+          "${event.format.replaceall('\"', '\\\"')}",
+          "${event.start.replaceall('\"', '\\\"')}",
           ${event.participants},
-          "${event.ctftime_url}",
-          "${event.location}",
-          "${event.live_feed}",
+          "${event.ctftime_url.replaceall('\"', '\\\"')}",
+          "${event.location.replaceall('\"', '\\\"')}",
+          "${event.live_feed.replaceall('\"', '\\\"')}",
           ${event.public_votable ? 1 : 0},
           ${duration},
-          "${event.logo}",
+          "${event.logo.replaceall('\"', '\\\"')}",
           ${event.format_id},
           ${event.id},
           ${event.ctf_id}
-        )
-      `;
-      txn.executeSql(
-        sql,
+        )`,
         [],
-        (sqlTxn, res) => {
+        (_, res) => {
           console.log("insert event data successfully");
         },
         (error) => {
