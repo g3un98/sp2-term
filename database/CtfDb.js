@@ -20,7 +20,7 @@ const _createOrgainzerTable = () => {
       },
     );
   });
-}
+};
 
 const _createEventTable = () => {
   _ctf_db.transaction((txn) => {
@@ -60,7 +60,7 @@ const _createEventTable = () => {
       },
     );
   });
-}
+};
 
 const _dropEventTable = () => {
   _ctf_db.transaction((txn) => {
@@ -75,7 +75,7 @@ const _dropEventTable = () => {
       },
     );
   });
-}
+};
 
 const _dropOrganiverTable = () => {
   _ctf_db.transaction((txn) => {
@@ -90,7 +90,7 @@ const _dropOrganiverTable = () => {
       },
     );
   });
-}
+};
 
 const _insertOrganizerTable = (organizers) => {
   organizers.map((organizer) => {
@@ -98,7 +98,7 @@ const _insertOrganizerTable = (organizers) => {
       txn.executeSql(
         `INSERT INTO organizer VALUES(
           ${organizer.id},
-          "${organizer.name.replaceall('\"', '\\\"')}"
+          "${organizer.name.replaceall('"', '\\"')}"
         )`,
         [],
         (_, res) => {
@@ -110,48 +110,48 @@ const _insertOrganizerTable = (organizers) => {
       );
     });
   });
-}
+};
 
 const _insertEventTable = (event) => {
-    let duration = 0;
-    duration += Number(event.duration.hours);
-    duration += Number(event.duration.days) * 12;
+  let duration = 0;
+  duration += Number(event.duration.hours);
+  duration += Number(event.duration.days) * 12;
 
-    _ctf_db.transaction((txn) => {
-      txn.executeSql(
-        `INSERT INTO event VALUES(
+  _ctf_db.transaction((txn) => {
+    txn.executeSql(
+      `INSERT INTO event VALUES(
           ${event.organizers[0].id},
           ${event.onsite ? 1 : 0},
-          "${event.finish.replaceall('\"', '\\\"')}",
-          "${event.description.replaceall('\"', '\\\"')}",
+          "${event.finish.replaceall('"', '\\"')}",
+          "${event.description.replaceall('"', '\\"')}",
           ${event.weight},
-          "${event.title.replaceall('\"', '\\\"')}",
-          "${event.url.replaceall('\"', '\\\"')}",
+          "${event.title.replaceall('"', '\\"')}",
+          "${event.url.replaceall('"', '\\"')}",
           ${event.is_votable_now ? 1 : 0},
-          "${event.restrictions.replaceall('\"', '\\\"')}",
-          "${event.format.replaceall('\"', '\\\"')}",
-          "${event.start.replaceall('\"', '\\\"')}",
+          "${event.restrictions.replaceall('"', '\\"')}",
+          "${event.format.replaceall('"', '\\"')}",
+          "${event.start.replaceall('"', '\\"')}",
           ${event.participants},
-          "${event.ctftime_url.replaceall('\"', '\\\"')}",
-          "${event.location.replaceall('\"', '\\\"')}",
-          "${event.live_feed.replaceall('\"', '\\\"')}",
+          "${event.ctftime_url.replaceall('"', '\\"')}",
+          "${event.location.replaceall('"', '\\"')}",
+          "${event.live_feed.replaceall('"', '\\"')}",
           ${event.public_votable ? 1 : 0},
           ${duration},
-          "${event.logo.replaceall('\"', '\\\"')}",
+          "${event.logo.replaceall('"', '\\"')}",
           ${event.format_id},
           ${event.id},
           ${event.ctf_id}
         )`,
-        [],
-        (_, res) => {
-          console.log("insert event data successfully");
-        },
-        (error) => {
-          console.log(`insert event data failed: ${error.message}`);
-        },
-      );
-    });
-}
+      [],
+      (_, res) => {
+        console.log("insert event data successfully");
+      },
+      (error) => {
+        console.log(`insert event data failed: ${error.message}`);
+      },
+    );
+  });
+};
 
 // Inseart data into "event", "organizer" tables
 export const insertCtfDb = (ctf_array) => {
