@@ -11,16 +11,11 @@ const MarkedCtfList = ({ navigation }) => {
   const [markedCtfs, updateMarkedCtfs] = useState([]);
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
-  const deleteMarkedCtfList = (id) => {
-    let tmpMarkedCtfs = markedCtfs;
-    const deleteIndex = tmpMarkedCtfs.findIndex(function (item) {
-      return item.id === id;
-    });
+  const deleteMarkedCtfList = (target_id) => {
+    console.log(`Delete ID: ${target_id}`);
 
-    console.log("Delete ID: " + tmpMarkedCtfs[deleteIndex].id);
     // database delete function add
-    tmpMarkedCtfs.splice(deleteIndex, 1);
-    updateMarkedCtfs(tmpMarkedCtfs);
+    updateMarkedCtfs(markedCtfs.filter(({ id }) => id != target_id ));
     forceUpdate();
   };
 
