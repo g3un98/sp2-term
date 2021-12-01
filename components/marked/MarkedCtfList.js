@@ -21,7 +21,7 @@ const MarkedCtfList = ({ navigation }) => {
 
   const updateMarkedCtfList = async (startTime) => {
     // call database select function -> ctfs = select(???)
-    let newMarkedCtfList = await fetchCtfInfo((startTime = startTime));
+    const newMarkedCtfList = await fetchCtfInfo((startTime = startTime));
     updateMarkedCtfs(newMarkedCtfList);
   };
 

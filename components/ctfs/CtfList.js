@@ -12,7 +12,7 @@ const CtfList = ({ navigation }) => {
 
   const updateCtfList = async (startTime) => {
     // update database and call database select function -> ctfs = select(???)
-    let newCtfList = await fetchCtfInfo((startTime = startTime));
+    const newCtfList = await fetchCtfInfo((startTime = startTime));
     updateCtfs(newCtfList);
   };
 
