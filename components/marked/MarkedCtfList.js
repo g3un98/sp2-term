@@ -11,8 +11,14 @@ let initFlag = false;
 const MarkedCtfList = ({ navigation }) => {
   const [markedCtfs, updateMarkedCtfs] = useState([]);
 
-  const deleteMarkedCtfList = (id) => {updateMarkedCtfs(MarkedListControl.deleteMarkedCtfList(id, markedCtfs))};
-  const updateMarkedCtfList = async (startTime, finishTime) => {updateMarkedCtfs(await MarkedListControl.updateMarkedCtfList(startTime, finishTime))};
+  const deleteMarkedCtfList = (id) => {
+    updateMarkedCtfs(MarkedListControl.deleteMarkedCtfList(id, markedCtfs));
+  };
+  const updateMarkedCtfList = async (startTime, finishTime) => {
+    updateMarkedCtfs(
+      await MarkedListControl.updateMarkedCtfList(startTime, finishTime),
+    );
+  };
 
   if (!initFlag) {
     initFlag = true;

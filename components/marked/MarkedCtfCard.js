@@ -3,7 +3,9 @@ import { Button, Text, View } from "react-native";
 
 // const MarkedCtfCard = ({ title, navigation, id, markedCtfs, deleteMarkedCtfs }) => {
 const MarkedCtfCard = (props) => {
-  const deleteMarkedCtfList = (id) => {props.deleteMarkedCtfList(id)};
+  const deleteMarkedCtfList = (id) => {
+    props.deleteMarkedCtfList(id);
+  };
 
   return (
     <View
