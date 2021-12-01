@@ -9,7 +9,7 @@ let initFlag = false;
 
 const MarkedCtfList = ({ navigation }) => {
   const [markedCtfs, updateMarkedCtfs] = useState([]);
-  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [_, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const deleteMarkedCtfList = (target_id) => {
     console.log(`Delete ID: ${target_id}`);
