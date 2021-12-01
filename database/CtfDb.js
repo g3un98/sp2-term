@@ -158,7 +158,7 @@ export const insertCtfDb = (ctf_array) => {
           ${ctf.organizers[0].id},
           ${onsite},
           "${ctf.finish}",
-          "${ctf.description}",
+          "${ctf.description.replaceall('\"', '\\\"')}",
           ${ctf.weight},
           "${ctf.title}",
           "${ctf.url}",
