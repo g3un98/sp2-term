@@ -30,7 +30,7 @@ export default function App() {
             } else if (route.name === "Settings") {
               iconName = focused ? "settings" : "settings-outline";
             } else if (route.name === "Debug") {
-              iconName = focused ? "checkcircle" : "checkcircleo";
+              iconName = focused ? "bug" : "bug-outline";
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
