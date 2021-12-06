@@ -3,66 +3,29 @@ import { openDatabase } from "react-native-sqlite-storage";
 
 const _ctf_db = openDatabase({ name: "ctf_db" });
 
-// Drop "event", "organizer" tables
-export const dropCtfDb = () => {
+const _createOrgainzerTable = () => {
   _ctf_db.transaction((txn) => {
-    sql = "DROP TABLE event";
     txn.executeSql(
-      sql,
+      `CREATE TABLE "organizer" (
+        "id"    INTEGER  NOT NULL  UNIQUE,
+        "name"	TEXT     NOT NULL,
+        PRIMARY KEY("id", "name")
+      )`,
       [],
-      (sqlTxn, res) => {
-        console.log("[dropCtfDb] drop event table successfully");
+      (_, res) => {
+        console.log("create organizer table successfully");
       },
       (error) => {
-        console.log(`[dropCtfDb] drop event table failed: ${error.message}`);
-      },
-    );
-  });
-  _ctf_db.transaction((txn) => {
-    sql = "DROP TABLE organizer";
-    txn.executeSql(
-      sql,
-      [],
-      (sqlTxn, res) => {
-        console.log("[dropCtfDb] drop organizer table successfully");
-      },
-      (error) => {
-        console.log(
-          `[dropCtfDb] drop organizer table failed: ${error.message}`,
-        );
+        console.log(`create organizer table failed: ${error.message}`);
       },
     );
   });
 };
 
-// Create "event", "organizer" tables
-export const createCtfDb = () => {
-  let sql;
-
+const _createEventTable = () => {
   _ctf_db.transaction((txn) => {
-    sql = `
-      CREATE TABLE "organizer" (
-        "id"    INTEGER  NOT NULL  UNIQUE,
-        "name"	TEXT     NOT NULL,
-        PRIMARY KEY("id","name")
-      )
-    `;
     txn.executeSql(
-      sql,
-      [],
-      (sqlTxn, res) => {
-        console.log("[createCtfDb] create organizer table successfully");
-      },
-      (error) => {
-        console.log(
-          `[createCtfDb] create organizer table failed: ${error.message}`,
-        );
-      },
-    );
-  });
-  _ctf_db.transaction((txn) => {
-    sql = `
-      CREATE TABLE "event" (
+      `CREATE TABLE "event" (
         "oid"             INTEGER  NOT NULL  UNIQUE,
         "onsite"          INTEGER  NOT NULL,
         "finish"          TEXT,
@@ -85,111 +48,220 @@ export const createCtfDb = () => {
         "id"              INTEGER  NOT NULL,
         "ctf_id"          INTEGER  NOT NULL,
         PRIMARY           KEY("ctf_id"),
-        FOREIGN           KEY("oid") REFERENCES "organizer"("id")
-      )
-    `;
-    txn.executeSql(
-      sql,
+        FOREIGN           KEY("oid")
+        REFERENCES        "organizer"("id")
+      )`,
       [],
-      (sqlTxn, res) => {
-        console.log("[createCtfDb] create event table successfully");
+      (_, res) => {
+        console.log("create event table successfully");
       },
       (error) => {
-        console.log(
-          `[createCtfDb] create event table failed: ${error.message}`,
-        );
+        console.log(`create event table failed: ${error.message}`);
       },
     );
   });
 };
 
-// Init "event", "organizer" tables
-export const initCtfDb = () => {
-  try {
-    createCtfDb();
-  } catch (error) {
-    // tables are alreay exist
-    // -> do nothing
-  }
+const _dropEventTable = () => {
+  _ctf_db.transaction((txn) => {
+    txn.executeSql(
+      "DROP TABLE event",
+      [],
+      (_, res) => {
+        console.log("drop event table successfully");
+      },
+      (error) => {
+        console.log(`drop event table failed: ${error.message}`);
+      },
+    );
+  });
 };
 
-// Inseart data into "event", "organizer" tables
-export const insertCtfDb = (ctf_array) => {
-  let sql;
+const _dropOrganizerTable = () => {
+  _ctf_db.transaction((txn) => {
+    txn.executeSql(
+      "DROP TABLE organizer",
+      [],
+      (_, res) => {
+        console.log("drop organizer table successfully");
+      },
+      (error) => {
+        console.log(`drop organizer table failed: ${error.message}`);
+      },
+    );
+  });
+};
 
-  ctf_array.map((ctf) => {
+const _insertOrganizerTable = (organizers) => {
+  organizers.map((organizer) => {
     _ctf_db.transaction((txn) => {
-      sql = `
-        INSERT INTO organizer VALUES(
-          ${ctf.organizers[0].id},
-          "${ctf.organizers[0].name}"
-        )
-      `;
       txn.executeSql(
-        sql,
+        `INSERT INTO organizer VALUES(
+          ${organizer.id},
+          "${organizer.name.replace(/"/g, '\\"')}"
+        )`,
         [],
-        (sqlTxn, res) => {
-          console.log("[insertCtfDb] insert organizer data successfully");
+        (_, res) => {
+          console.log("insert organizer data successfully");
         },
         (error) => {
-          console.log(
-            `[insertCtfDb] insert organizer data failed: ${error.message}`,
-          );
-        },
-      );
-    });
-
-    const onsite = ctf.onsite ? 1 : 0;
-    const is_votable_now = ctf.is_votable_now ? 1 : 0;
-    const public_votable = ctf.public_votable ? 1 : 0;
-    let duration = 0;
-    duration += Number(ctf.duration.hours);
-    duration += Number(ctf.duration.days) * 12;
-
-    _ctf_db.transaction((txn) => {
-      /*
-       * oid, onsite, "finish", "description", weight,
-       * "title", "url", is_votable_now, "restrictions", "format"
-       * "start", participants, "ctftime_url", "location", "live_feed"
-       * public_votable, duration, "logo", format_id, id, ctf_id
-       **/
-      sql = `
-        INSERT INTO event VALUES(
-          ${ctf.organizers[0].id},
-          ${onsite},
-          "${ctf.finish}",
-          "${ctf.description}",
-          ${ctf.weight},
-          "${ctf.title}",
-          "${ctf.url}",
-          ${is_votable_now},
-          "${ctf.restrictions}",
-          "${ctf.format}",
-          "${ctf.start}",
-          ${ctf.participants},
-          "${ctf.ctftime_url}",
-          "${ctf.location}",
-          "${ctf.live_feed}",
-          ${public_votable},
-          ${duration},
-          "${ctf.logo}",
-          ${ctf.format_id},
-          ${ctf.id},
-          ${ctf.ctf_id}
-        )
-      `;
-      txn.executeSql(
-        sql,
-        [],
-        (sqlTxn, res) => {
-          console.log("[insertCtfDb] insert event data successfully");
-        },
-        (error) => {
-          console.log(
-            `[insertCtfDb] insert event data failed: ${error.message}`,
-          );
+          console.log(`insert organizer data failed: ${error.message}`);
         },
       );
     });
   });
+};
+
+const _insertEventTable = (event) => {
+  let duration = 0;
+  duration += Number(event.duration.hours);
+  duration += Number(event.duration.days) * 12;
+
+  _ctf_db.transaction((txn) => {
+    txn.executeSql(
+      `INSERT INTO event VALUES(
+          ${event.organizers[0].id},
+          ${event.onsite ? 1 : 0},
+          "${event.finish.replace(/"/g, '\\"')}",
+          "${event.description.replace(/"/g, '\\"')}",
+          ${event.weight},
+          "${event.title.replace(/"/g, '\\"')}",
+          "${event.url.replace(/"/g, '\\"')}",
+          ${event.is_votable_now ? 1 : 0},
+          "${event.restrictions.replace(/"/g, '\\"')}",
+          "${event.format.replace(/"/g, '\\"')}",
+          "${event.start.replace(/"/g, '\\"')}",
+          ${event.participants},
+          "${event.ctftime_url.replace(/"/g, '\\"')}",
+          "${event.location.replace(/"/g, '\\"')}",
+          "${event.live_feed.replace(/"/g, '\\"')}",
+          ${event.public_votable ? 1 : 0},
+          ${duration},
+          "${event.logo.replace(/"/g, '\\"')}",
+          ${event.format_id},
+          ${event.id},
+          ${event.ctf_id}
+        )`,
+      [],
+      (_, res) => {
+        console.log("insert event data successfully");
+      },
+      (error) => {
+        console.log(`insert event data failed: ${error.message}`);
+      },
+    );
+  });
+};
+
+const _selectOrganizerTable = () => {
+  let results = [];
+
+  _ctf_db.transaction((txn) => {
+    txn.executeSql(
+      "SELECT * FROM organizer",
+      [],
+      (_, res) => {
+        console.log("select organizer table successfully");
+        let len = res.rows.length;
+
+        if(len > 0) {
+          for(let i = 0; i < len; i++) {
+            let item = res.rows.item(i);
+            results.push(item);
+          }
+        }
+      },
+      (error) => {
+        console.log(`select organizer table failed: ${error.message}`);
+      },
+    );
+  });
+  return results;
+};
+
+const _selectEventTable = () => {
+  let results = [];
+  _ctf_db.transaction((txn) => {
+    txn.executeSql(
+      "SELECT * FROM event",
+      [],
+      (_, res) => {
+        console.log("select event table successfully");
+        let len = res.rows.length;
+
+        if(len > 0) {
+          for(let i = 0; i < len; i++) {
+            let item = res.rows.item(i);
+            results.push(item);
+          }
+        }
+      },
+      (error) => {
+        console.log(`select event table failed: ${error.message}`);
+      },
+    );
+  });
+  return results;
+};
+
+const _deleteOrganizerTable = (oid) => {
+  _ctf_db.transaction((txn) => {
+    txn.executeSql(
+      `DELETE FROM organizer WHERE id=${oid}`,
+      [],
+      (_, res) => {
+        console.log("delete organizer table successfully");
+      },
+      (error) => {
+        console.log(`delete organizer table failed: ${error.message}`);
+      },
+    );
+  });
+};
+
+const _deleteEventTable = (oid) => {
+  _ctf_db.transaction((txn) => {
+    txn.executeSql(
+      `DELETE FROM event WHERE id=${oid}`,
+      [],
+      (_, res) => {
+        console.log("delete event table successfully");
+      },
+      (error) => {
+        console.log(`delete event table failed: ${error.message}`);
+      },
+    );
+  });
+};
+
+// Inseart data into "event", "organizer" tables
+export const insertCtfDb = (ctf_array) => {
+  ctf_array.map((ctf) => {
+    _insertOrganizerTable(ctf.organizers);
+    _insertEventTable(ctf);
+  });
+};
+
+// Create "event", "organizer" tables
+export const createCtfDb = () => {
+  _createOrgainzerTable();
+  _createEventTable();
+};
+
+// Drop "event", "organizer" tables
+export const dropCtfDb = () => {
+  _dropEventTable();
+  _dropOrganizerTable();
+};
+
+// Select "event", "organizer" tables
+export const selectCtfDb = () => {
+  return _selectEventTable();
+  
+};
+
+// Delete "event", "organizer" tables
+export const deleteCtfDb = () => {
+  _deleteEventTable();
+  _deleteOrganizerTable();
 };
