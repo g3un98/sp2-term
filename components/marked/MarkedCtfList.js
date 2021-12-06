@@ -1,42 +1,49 @@
-import React, { useState, useEffect, useReducer } from "react";
-import { Text, ScrollView } from "react-native";
-import { MarkedListControl } from "../../src/componentState";
+import React, { useState, useEffect } from "react";
+import { ActivityIndicator, Text, ScrollView, StyleSheet } from "react-native";
 import MarkedCtfCard from "./MarkedCtfCard";
-
-// IMPORT FOR API TEST
-import { fetchCtfInfo } from "../../api/fetch";
-
-let initFlag = false;
+import fetch from "node-fetch";
 
 const MarkedCtfList = ({ navigation }) => {
-  const [markedCtfs, updateMarkedCtfs] = useState([]);
+  const [markedCtfs, setMarkedCtfs] = useState([]);
 
-  const deleteMarkedCtfList = (id) => {
-    updateMarkedCtfs(MarkedListControl.deleteMarkedCtfList(id, markedCtfs));
-  };
-  const updateMarkedCtfList = async (startTime, finishTime) => {
-    updateMarkedCtfs(
-      await MarkedListControl.updateMarkedCtfList(startTime, finishTime),
-    );
+  const fetchCtf = async () => {
+    const url = "https://ctftime.org/api/v1/events/?limit=10";
+
+    const res = await fetch(url);
+    const json = await res.json();
+    setMarkedCtfs(json);
   };
 
-  if (!initFlag) {
-    initFlag = true;
-    updateMarkedCtfList();
-  }
+  useEffect(() => {
+    fetchCtf();
+  }, []);
+
+  const deleteMarkedCtf = (id) => {
+    setMarkedCtfs(markedCtfs.filter((ctf) => ctf.id != id));
+  };
+
   return (
-    <ScrollView>
-      {markedCtfs.map((markedCtf) => (
-        <MarkedCtfCard
-          key={markedCtf.id}
-          markedCtfs={markedCtfs}
-          deleteMarkedCtfList={deleteMarkedCtfList}
-          {...markedCtf}
-          navigation={navigation}
-        />
-      ))}
+    <ScrollView containerStyle={styles.container}>
+      {markedCtfs.length === 0 ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        markedCtfs.map((ctf) => (
+          <MarkedCtfCard
+            key={ctf.id}
+            {...ctf}
+            deleteMarkedCtf={deleteMarkedCtf}
+            navigation={navigation}
+          />
+        ))
+      )}
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default MarkedCtfList;
