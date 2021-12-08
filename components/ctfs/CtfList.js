@@ -14,10 +14,10 @@ const _ctf_db = openDatabase({ name: "ctf_db" });
 const _createOrgainzerTable = () => {
   _ctf_db.transaction((txn) => {
     txn.executeSql(
-      `CREATE TABLE "organizer" (
-        "id"    INTEGER  NOT NULL  UNIQUE,
-        "name"	TEXT     NOT NULL,
-        PRIMARY KEY("id", "name")
+      `CREATE TABLE 'organizer' (
+        'id'    INTEGER  NOT NULL  UNIQUE,
+        'name'	TEXT     NOT NULL,
+        PRIMARY KEY('id', 'name')
       )`,
       [],
       (_, res) => {
@@ -33,31 +33,31 @@ const _createOrgainzerTable = () => {
 const _createEventTable = () => {
   _ctf_db.transaction((txn) => {
     txn.executeSql(
-      `CREATE TABLE "event" (
-        "oid"             INTEGER  NOT NULL  UNIQUE,
-        "onsite"          INTEGER  NOT NULL,
-        "finish"          TEXT,
-        "description"     TEXT,
-        "weight"          REAL     NOT NULL,
-        "title"           TEXT,
-        "url"             TEXT,
-        "is_votable_now"  INTEGER,
-        "restrictions"    TEXT,
-        "format"          TEXT,
-        "start"           TEXT,
-        "participants"    NUMERIC,
-        "ctftime_url"     TEXT,
-        "location"        TEXT,
-        "live_feed"       TEXT,
-        "public_votable"  INTEGER,
-        "duration"        INTEGER  NOT NULL,
-        "logo"            TEXT,
-        "format_id"       INTEGER  NOT NULL,
-        "id"              INTEGER  NOT NULL,
-        "ctf_id"          INTEGER  NOT NULL,
-        PRIMARY           KEY("ctf_id"),
-        FOREIGN           KEY("oid")
-        REFERENCES        "organizer"("id")
+      `CREATE TABLE 'event' (
+        'oid'             INTEGER  NOT NULL  UNIQUE,
+        'onsite'          INTEGER  NOT NULL,
+        'finish'          TEXT,
+        'description'     TEXT,
+        'weight'          REAL     NOT NULL,
+        'title'           TEXT,
+        'url'             TEXT,
+        'is_votable_now'  INTEGER,
+        'restrictions'    TEXT,
+        'format'          TEXT,
+        'start'           TEXT,
+        'participants'    NUMERIC,
+        'ctftime_url'     TEXT,
+        'location'        TEXT,
+        'live_feed'       TEXT,
+        'public_votable'  INTEGER,
+        'duration'        INTEGER  NOT NULL,
+        'logo'            TEXT,
+        'format_id'       INTEGER  NOT NULL,
+        'id'              INTEGER  NOT NULL,
+        'ctf_id'          INTEGER  NOT NULL,
+        PRIMARY           KEY('ctf_id'),
+        FOREIGN           KEY('oid')
+        REFERENCES        'organizer'('id')
       )`,
       [],
       (_, res) => {
@@ -105,7 +105,7 @@ const _insertOrganizer = (organizer) => {
     txn.executeSql(
       `INSERT INTO organizer VALUES(
         ${organizer.id},
-        "${organizer.name.replace(/"/g, '\\"')}"
+        '${organizer.name.replace(/\'/gm, '\'\'')}'
       )`,
       [],
       (_, res) => {
@@ -128,22 +128,22 @@ const _insertEvent = (event) => {
       `INSERT INTO event VALUES(
           ${event.organizers[0].id},
           ${event.onsite ? 1 : 0},
-          "${event.finish.replace(/"/g, '\\"')}",
-          "${event.description.replace(/"/g, '\\"')}",
+          '${event.finish.replace(/\'/gm, '\'\'')}',
+          '${event.description.replace(/\'/gm, '\'\'')}',
           ${event.weight},
-          "${event.title.replace(/"/g, '\\"')}",
-          "${event.url.replace(/"/g, '\\"')}",
+          '${event.title.replace(/\'/gm, '\'\'')}',
+          '${event.url.replace(/\'/gm, '\'\'')}',
           ${event.is_votable_now ? 1 : 0},
-          "${event.restrictions.replace(/"/g, '\\"')}",
-          "${event.format.replace(/"/g, '\\"')}",
-          "${event.start.replace(/"/g, '\\"')}",
+          '${event.restrictions.replace(/\'/gm, '\'\'')}',
+          '${event.format.replace(/\'/gm, '\'\'')}',
+          '${event.start.replace(/\'/gm, '\'\'')}',
           ${event.participants},
-          "${event.ctftime_url.replace(/"/g, '\\"')}",
-          "${event.location.replace(/"/g, '\\"')}",
-          "${event.live_feed.replace(/"/g, '\\"')}",
+          '${event.ctftime_url.replace(/\'/gm, '\'\'')}',
+          '${event.location.replace(/\'/gm, '\'\'')}',
+          '${event.live_feed.replace(/\'/gm, '\'\'')}',
           ${event.public_votable ? 1 : 0},
           ${duration},
-          "${event.logo.replace(/"/g, '\\"')}",
+          '${event.logo.replace(/\'/gm, '\'\'')}',
           ${event.format_id},
           ${event.id},
           ${event.ctf_id}
