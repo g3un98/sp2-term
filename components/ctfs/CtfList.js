@@ -254,6 +254,7 @@ const fetchCtf = async () => {
 
 const CtfList = ({ navigation }) => {
   const [ctfs, setCtfs] = useState([]);
+  
   useEffect(() => {
     (async () => {})();
     fetchCtf().then((res) =>
