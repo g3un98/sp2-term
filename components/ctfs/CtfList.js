@@ -55,6 +55,7 @@ const _createEventTable = () => {
         'format_id'       INTEGER  NOT NULL,
         'id'              INTEGER  NOT NULL,
         'ctf_id'          INTEGER  NOT NULL,
+        'is_marked'       INTEGER  NOT NULL,
         PRIMARY           KEY('ctf_id'),
         FOREIGN           KEY('oid')
         REFERENCES        'organizer'('id')
@@ -146,7 +147,8 @@ const _insertEvent = (event) => {
           '${event.logo.replace(/\'/gm, '\'\'')}',
           ${event.format_id},
           ${event.id},
-          ${event.ctf_id}
+          ${event.ctf_id},
+          0
         )`,
       [],
       (_, res) => {
@@ -252,7 +254,6 @@ const fetchCtf = async () => {
 
 const CtfList = ({ navigation }) => {
   const [ctfs, setCtfs] = useState([]);
-
   useEffect(() => {
     (async () => {})();
     fetchCtf().then((res) =>
