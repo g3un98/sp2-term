@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ActivityIndicator, Text, ScrollView, StyleSheet } from "react-native";
+import { ActivityIndicator, ScrollView, View, StyleSheet } from "react-native";
 import MarkedCtfCard from "./MarkedCtfCard";
 import fetch from "node-fetch";
 
@@ -23,26 +23,29 @@ const MarkedCtfList = ({ navigation }) => {
   };
 
   return (
-    <ScrollView containerStyle={styles.container}>
+    <View style={styles.container}>
       {markedCtfs.length === 0 ? (
         <ActivityIndicator size="large" />
       ) : (
-        markedCtfs.map((ctf) => (
-          <MarkedCtfCard
-            key={ctf.id}
-            {...ctf}
-            deleteMarkedCtf={deleteMarkedCtf}
-            navigation={navigation}
-          />
-        ))
+        <ScrollView>
+          {markedCtfs.map((ctf) => (
+            <MarkedCtfCard
+              key={ctf.id}
+              {...ctf}
+              deleteMarkedCtf={deleteMarkedCtf}
+              navigation={navigation}
+            />
+          ))}
+        </ScrollView>
       )}
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
   },
 });
 

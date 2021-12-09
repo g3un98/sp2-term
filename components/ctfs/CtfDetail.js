@@ -6,6 +6,14 @@ const CtfDetail = ({ route }) => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>{id}!</Text>
+      /*
+      <Pressable
+        style={styles.btn}
+        onPress={async () => await Share.share({ message: ctftime_url })}
+      >
+        <Ionicons name="share-outline" size={24} color="tomato" />
+      </Pressable>
+      */
     </View>
   );
 };

@@ -14,6 +14,9 @@ target 'SP2Term' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+
+  pod 'RNCalendarEvents', :path => '../node_modules/react-native-calendar-events'
+
   target 'SP2TermTests' do
     inherit! :complete
     # Pods for testing
