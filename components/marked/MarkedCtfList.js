@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { ActivityIndicator, Text, ScrollView, StyleSheet, Button } from "react-native";
+import {
+  ActivityIndicator,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Button,
+} from "react-native";
 import MarkedCtfCard from "./MarkedCtfCard";
 import fetch from "node-fetch";
 import { _ctf_db } from "../ctfs/CtfList";
@@ -10,7 +16,9 @@ const selectAllMarkedEvent = (cb) => {
       "SELECT * FROM event WHERE is_marked='1'",
       [],
       (_, res) => {
-        console.log(`select all marked event successfully (${res.rows.length})`);
+        console.log(
+          `select all marked event successfully (${res.rows.length})`,
+        );
         cb(res.rows.raw());
       },
       (error) => {
@@ -37,15 +45,15 @@ const updateMarkedEvent = (id) => {
 
 const MarkedCtfList = ({ navigation }) => {
   const [markedCtfs, setMarkedCtfs] = useState([]);
-  const [newState, setNewState] = useState(false);    
-  
+  const [newState, setNewState] = useState(false);
+
   const clearComponent = () => {
     setNewState(!newState);
-  }
+  };
 
   useEffect(() => {
     selectAllMarkedEvent(setMarkedCtfs);
-    console.log('Check');
+    console.log("Check");
   }, [newState]);
 
   const deleteMarkedCtf = (id) => {
@@ -68,10 +76,7 @@ const MarkedCtfList = ({ navigation }) => {
           />
         ))
       )}
-      <Button
-        title="Refresh"
-        onPress={clearComponent}
-      />
+      <Button title="Refresh" onPress={clearComponent} />
     </ScrollView>
   );
 };

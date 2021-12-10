@@ -106,7 +106,7 @@ const _insertOrganizer = (organizer) => {
     txn.executeSql(
       `INSERT INTO organizer VALUES(
         ${organizer.id},
-        '${organizer.name.replace(/\'/gm, '\'\'')}'
+        '${organizer.name.replace(/\'/gm, "''")}'
       )`,
       [],
       (_, res) => {
@@ -129,22 +129,22 @@ const _insertEvent = (event) => {
       `INSERT INTO event VALUES(
           ${event.organizers[0].id},
           ${event.onsite ? 1 : 0},
-          '${event.finish.replace(/\'/gm, '\'\'')}',
-          '${event.description.replace(/\'/gm, '\'\'')}',
+          '${event.finish.replace(/\'/gm, "''")}',
+          '${event.description.replace(/\'/gm, "''")}',
           ${event.weight},
-          '${event.title.replace(/\'/gm, '\'\'')}',
-          '${event.url.replace(/\'/gm, '\'\'')}',
+          '${event.title.replace(/\'/gm, "''")}',
+          '${event.url.replace(/\'/gm, "''")}',
           ${event.is_votable_now ? 1 : 0},
-          '${event.restrictions.replace(/\'/gm, '\'\'')}',
-          '${event.format.replace(/\'/gm, '\'\'')}',
-          '${event.start.replace(/\'/gm, '\'\'')}',
+          '${event.restrictions.replace(/\'/gm, "''")}',
+          '${event.format.replace(/\'/gm, "''")}',
+          '${event.start.replace(/\'/gm, "''")}',
           ${event.participants},
-          '${event.ctftime_url.replace(/\'/gm, '\'\'')}',
-          '${event.location.replace(/\'/gm, '\'\'')}',
-          '${event.live_feed.replace(/\'/gm, '\'\'')}',
+          '${event.ctftime_url.replace(/\'/gm, "''")}',
+          '${event.location.replace(/\'/gm, "''")}',
+          '${event.live_feed.replace(/\'/gm, "''")}',
           ${event.public_votable ? 1 : 0},
           ${duration},
-          '${event.logo.replace(/\'/gm, '\'\'')}',
+          '${event.logo.replace(/\'/gm, "''")}',
           ${event.format_id},
           ${event.id},
           ${event.ctf_id},
@@ -258,7 +258,6 @@ const updateMarkedEvent = (id) => {
   });
 };
 
-
 const fetchCtf = async () => {
   const url = "https://ctftime.org/api/v1/events/?limit=500";
 
@@ -270,7 +269,7 @@ const fetchCtf = async () => {
 
 const CtfList = ({ navigation }) => {
   const [ctfs, setCtfs] = useState([]);
-  
+
   useEffect(() => {
     (async () => {})();
     fetchCtf().then((res) =>
@@ -287,7 +286,12 @@ const CtfList = ({ navigation }) => {
         <ActivityIndicator size="large" />
       ) : (
         ctfs.map((ctf) => (
-          <CtfCard key={ctf.id} {...ctf} navigation={navigation} updateMarkedEvent={updateMarkedEvent}/>
+          <CtfCard
+            key={ctf.id}
+            {...ctf}
+            navigation={navigation}
+            updateMarkedEvent={updateMarkedEvent}
+          />
         ))
       )}
     </ScrollView>
