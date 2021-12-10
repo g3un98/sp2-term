@@ -1,51 +1,48 @@
-import React, { useState, useEffect, useReducer } from "react";
-import { Text, ScrollView } from "react-native";
+import React, { useState, useEffect } from "react";
+import { ActivityIndicator, Text, ScrollView, StyleSheet } from "react-native";
 import MarkedCtfCard from "./MarkedCtfCard";
-
-// IMPORT FOR API TEST
-import { fetchCtfInfo } from "../../api/fetch";
-
-let initFlag = false;
+import fetch from "node-fetch";
 
 const MarkedCtfList = ({ navigation }) => {
-  const [markedCtfs, updateMarkedCtfs] = useState([]);
-  const [_, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [markedCtfs, setMarkedCtfs] = useState([]);
 
-  const deleteMarkedCtfList = (target_id) => {
-    console.log(`Delete ID: ${target_id}`);
-
-    // database delete function add
-    updateMarkedCtfs(markedCtfs.filter(({ id }) => id != target_id));
-    forceUpdate();
+  const fetchCtf = async () => {
+    const url = "https://ctftime.org/api/v1/events/?limit=10";
+    const res = await fetch(url);
+    const json = await res.json();
+    setMarkedCtfs(json);
   };
-
-  const updateMarkedCtfList = async (startTime) => {
-    // call database select function -> ctfs = select(???)
-    const newMarkedCtfList = await fetchCtfInfo((startTime = startTime));
-    updateMarkedCtfs(newMarkedCtfList);
-  };
-
-  if (!initFlag) {
-    initFlag = true;
-    updateMarkedCtfList();
-  }
 
   useEffect(() => {
-    console.log("Render complete");
-  });
+    fetchCtf();
+  }, []);
+
+  const deleteMarkedCtf = (id) => {
+    setMarkedCtfs(markedCtfs.filter((ctf) => ctf.id != id));
+  };
+
   return (
-    <ScrollView>
-      {markedCtfs.map((markedCtf) => (
-        <MarkedCtfCard
-          key={markedCtf.id}
-          markedCtfs={markedCtfs}
-          deleteMarkedCtfs={deleteMarkedCtfList}
-          {...markedCtf}
-          navigation={navigation}
-        />
-      ))}
+    <ScrollView containerStyle={styles.container}>
+      {markedCtfs.length === 0 ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        markedCtfs.map((ctf) => (
+          <MarkedCtfCard
+            key={ctf.id}
+            {...ctf}
+            deleteMarkedCtf={deleteMarkedCtf}
+            navigation={navigation}
+          />
+        ))
+      )}
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default MarkedCtfList;
