@@ -1,24 +1,57 @@
 import React, { useState, useEffect } from "react";
-import { ActivityIndicator, Text, ScrollView, StyleSheet } from "react-native";
+import { ActivityIndicator, Text, ScrollView, StyleSheet, Button } from "react-native";
 import MarkedCtfCard from "./MarkedCtfCard";
 import fetch from "node-fetch";
+import { _ctf_db } from "../ctfs/CtfList";
+
+const selectAllMarkedEvent = (cb) => {
+  _ctf_db.transaction((txn) => {
+    txn.executeSql(
+      "SELECT * FROM event WHERE is_marked='1'",
+      [],
+      (_, res) => {
+        console.log(`select all marked event successfully (${res.rows.length})`);
+        cb(res.rows.raw());
+      },
+      (error) => {
+        console.log(`select all marked event failed: ${error.message}`);
+      },
+    );
+  });
+};
+
+const updateMarkedEvent = (id) => {
+  _ctf_db.transaction((txn) => {
+    txn.executeSql(
+      `UPDATE event SET is_marked='0' WHERE id=${id}`,
+      [],
+      (_, res) => {
+        console.log("update marked event successfully");
+      },
+      (error) => {
+        console.log(`update marked event failed: ${error.message}`);
+      },
+    );
+  });
+};
 
 const MarkedCtfList = ({ navigation }) => {
   const [markedCtfs, setMarkedCtfs] = useState([]);
-
-  const fetchCtf = async () => {
-    const url = "https://ctftime.org/api/v1/events/?limit=10";
-    const res = await fetch(url);
-    const json = await res.json();
-    setMarkedCtfs(json);
-  };
+  const [newState, setNewState] = useState(false);    
+  
+  const clearComponent = () => {
+    setNewState(!newState);
+  }
 
   useEffect(() => {
-    fetchCtf();
-  }, []);
+    selectAllMarkedEvent(setMarkedCtfs);
+    console.log('Check');
+  }, [newState]);
 
   const deleteMarkedCtf = (id) => {
+    updateMarkedEvent(id);
     setMarkedCtfs(markedCtfs.filter((ctf) => ctf.id != id));
+    clearComponent();
   };
 
   return (
@@ -35,6 +68,10 @@ const MarkedCtfList = ({ navigation }) => {
           />
         ))
       )}
+      <Button
+        title="Refresh"
+        onPress={clearComponent}
+      />
     </ScrollView>
   );
 };

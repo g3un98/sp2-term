@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, View, ScrollView, Text } from "react-native";
 import fetch from "node-fetch";
+import { createCtfDb, dropCtfDb } from "../ctfs/CtfList";
 
 const DebugPage = ({ navigation }) => {
   const [color, setColor] = useState("Blue");
@@ -11,11 +12,8 @@ const DebugPage = ({ navigation }) => {
       <Button
         title="Debug start"
         onPress={async () => {
-          const res = await fetch(
-            "https://ctftime.org/api/v1/events/?limit=10",
-          );
-          const json = await res.json();
-          console.log(json);
+          dropCtfDb();
+          createCtfDb();
         }}
       />
       <Button

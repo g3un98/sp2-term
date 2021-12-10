@@ -9,7 +9,7 @@ import { openDatabase } from "react-native-sqlite-storage";
 import fetch from "node-fetch";
 import CtfCard from "./CtfCard";
 
-const _ctf_db = openDatabase({ name: "ctf_db" });
+export const _ctf_db = openDatabase({ name: "ctf_db" });
 
 const _createOrgainzerTable = () => {
   _ctf_db.transaction((txn) => {
@@ -232,16 +232,32 @@ const insertCtfDb = (ctf) => {
 };
 
 // Create "event", "organizer" tables
-const createCtfDb = () => {
+export const createCtfDb = () => {
   _createOrgainzerTable();
   _createEventTable();
 };
 
 // Drop "event", "organizer" tables
-const dropCtfDb = () => {
+export const dropCtfDb = () => {
   _dropEventTable();
   _dropOrganizerTable();
 };
+
+const updateMarkedEvent = (id) => {
+  _ctf_db.transaction((txn) => {
+    txn.executeSql(
+      `UPDATE event SET is_marked='1' WHERE id=${id}`,
+      [],
+      (_, res) => {
+        console.log("update marked event successfully");
+      },
+      (error) => {
+        console.log(`update marked event failed: ${error.message}`);
+      },
+    );
+  });
+};
+
 
 const fetchCtf = async () => {
   const url = "https://ctftime.org/api/v1/events/?limit=500";
@@ -271,7 +287,7 @@ const CtfList = ({ navigation }) => {
         <ActivityIndicator size="large" />
       ) : (
         ctfs.map((ctf) => (
-          <CtfCard key={ctf.id} {...ctf} navigation={navigation} />
+          <CtfCard key={ctf.id} {...ctf} navigation={navigation} updateMarkedEvent={updateMarkedEvent}/>
         ))
       )}
     </ScrollView>

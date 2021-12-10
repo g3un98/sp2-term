@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button, Text, View } from "react-native";
 
-const CtfCard = ({ title, navigation, id }) => {
+const CtfCard = ({ title, navigation, id, updateMarkedEvent }) => {
   return (
     <View
       style={{
@@ -15,6 +15,12 @@ const CtfCard = ({ title, navigation, id }) => {
       <Button
         title="Get detail"
         onPress={() => navigation.navigate("CtfDetail", { id: id })}
+      />
+      <Button
+        title="Mark"
+        onPress={() => {
+          updateMarkedEvent(id);
+        }}
       />
     </View>
   );
