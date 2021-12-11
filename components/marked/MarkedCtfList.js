@@ -56,7 +56,7 @@ const MarkedCtfList = ({ navigation }) => {
   const refreshMarkedCtf = () => {
     selectAllMarkedEvent(setMarkedCtfs);
     console.log(`markedCtfs: ${markedCtfs}`);
-  }
+  };
 
   useEffect(() => {
     refreshMarkedCtf();
@@ -77,7 +77,7 @@ const MarkedCtfList = ({ navigation }) => {
           />
         ))
       )}
-      <Button title="Refresh" onPress={refreshMarkedCtf}/>
+      <Button title="Refresh" onPress={refreshMarkedCtf} />
     </ScrollView>
   );
 };
