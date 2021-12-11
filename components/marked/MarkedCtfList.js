@@ -19,7 +19,9 @@ const selectAllMarkedEvent = (cb) => {
         console.log(
           `select all marked event successfully (${res.rows.length})`,
         );
-        cb(res.rows.raw());
+        let newArray = res.rows.raw();
+        cb(newArray);
+        console.log(`markedCtfs IN: ${markedCtfs}`);
       },
       (error) => {
         console.log(`select all marked event failed: ${error.message}`);
@@ -45,22 +47,21 @@ const updateMarkedEvent = (id) => {
 
 const MarkedCtfList = ({ navigation }) => {
   const [markedCtfs, setMarkedCtfs] = useState([]);
-  const [newState, setNewState] = useState(false);
-
-  const clearComponent = () => {
-    setNewState(!newState);
-  };
-
-  useEffect(() => {
-    selectAllMarkedEvent(setMarkedCtfs);
-    console.log("Check");
-  }, [newState]);
 
   const deleteMarkedCtf = (id) => {
     updateMarkedEvent(id);
     setMarkedCtfs(markedCtfs.filter((ctf) => ctf.id != id));
-    clearComponent();
   };
+
+  const refreshMarkedCtf = () => {
+    selectAllMarkedEvent(setMarkedCtfs);
+    console.log(`markedCtfs: ${markedCtfs}`);
+  }
+
+  useEffect(() => {
+    refreshMarkedCtf();
+    console.log("Check");
+  }, []);
 
   return (
     <ScrollView containerStyle={styles.container}>
@@ -76,7 +77,7 @@ const MarkedCtfList = ({ navigation }) => {
           />
         ))
       )}
-      <Button title="Refresh" onPress={clearComponent} />
+      <Button title="Refresh" onPress={refreshMarkedCtf}/>
     </ScrollView>
   );
 };
