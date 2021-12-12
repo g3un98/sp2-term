@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import {
   ActivityIndicator,
   Button,
+  Pressable,
+  Text,
   ScrollView,
+  View,
   StyleSheet,
 } from "react-native";
 import { openDatabase } from "react-native-sqlite-storage";
 import fetch from "node-fetch";
+import CtfFilter from "./CtfFilter";
 import CtfCard from "./CtfCard";
 
 export const _ctf_db = openDatabase({ name: "ctf_db" });
@@ -180,7 +184,7 @@ const selectAllOrganizer = (cb) => {
 const selectAllEvent = (cb) => {
   _ctf_db.transaction((txn) => {
     txn.executeSql(
-      "SELECT * FROM event",
+      "SELECT * FROM event ORDER BY start",
       [],
       (_, res) => {
         console.log(`select all event successfully (${res.rows.length})`);
@@ -188,6 +192,37 @@ const selectAllEvent = (cb) => {
       },
       (error) => {
         console.log(`select all event failed: ${error.message}`);
+      },
+    );
+  });
+};
+
+const selectEvent = (id, cb) => {
+  _ctf_db.transaction((txn) => {
+    txn.executeSql(
+      `SELECT * FROM event WHERE id=${id}`,
+      [],
+      (_, res) => {
+        console.log(`select event(${id}) successfully (${res.rows.length})`);
+        cb(res.rows.raw());
+      },
+      (error) => {
+        console.log(`select event(${id}) failed: ${error.message}`);
+      },
+    );
+  });
+};
+
+const updateEvent = (id, values) => {
+  _ctf_db.transaction((txn) => {
+    txn.executeSql(
+      `UPDATE event SET ${values} WHERE id=${id}`,
+      [],
+      (_, res) => {
+        console.log(`update event(${id}) successfully`);
+      },
+      (error) => {
+        console.log(`update event(${id}) failed: ${error.message}`);
       },
     );
   });
@@ -269,38 +304,97 @@ const fetchCtf = async () => {
 
 const CtfList = ({ navigation }) => {
   const [ctfs, setCtfs] = useState([]);
+  const [filters, setFilters] = useState([]);
 
   useEffect(() => {
-    (async () => {})();
     fetchCtf().then((res) =>
       res.map((ctf) => {
         insertCtfDb(ctf);
       }),
     );
     selectAllEvent(setCtfs);
-  }, []);
+  }, filters);
 
   return (
-    <ScrollView containerStyle={styles.container}>
+    <View style={styles.container}>
+      {filters.length === 0 ? (
+        <Pressable
+          onPress={() =>
+            navigation.navigate("CtfFilter", {
+              filters: filters,
+              setFilters: setFilters,
+            })
+          }
+        >
+          <Text style={styles.msg}>Filter</Text>
+        </Pressable>
+      ) : (
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <Pressable
+            style={styles.filters}
+            onPress={() =>
+              navigation.navigate("CtfFilter", {
+                filters: filters,
+                setFilters: setFilters,
+              })
+            }
+          >
+            {filters.map((filter, idx) => (
+              <View key={idx} style={styles.filter}>
+                <Text style={styles.filterText}>{filter}</Text>
+              </View>
+            ))}
+          </Pressable>
+        </ScrollView>
+      )}
+
       {ctfs.length === 0 ? (
         <ActivityIndicator size="large" />
       ) : (
-        ctfs.map((ctf) => (
-          <CtfCard
-            key={ctf.id}
-            {...ctf}
-            navigation={navigation}
-            updateMarkedEvent={updateMarkedEvent}
-          />
-        ))
+        <ScrollView>
+          {ctfs.map((ctf) => (
+            <CtfCard
+              key={ctf.id}
+              {...ctf}
+              navigation={navigation}
+              updateEvent={updateEvent}
+            />
+          ))}
+        </ScrollView>
       )}
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
+  },
+  msg: {
+    padding: 4,
+    fontSize: 18,
+    fontWeight: "700",
+    textAlign: "center",
+  },
+  filters: {
+    paddingVertical: 8,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+  },
+  filter: {
+    marginLeft: 8,
+    paddingTop: 2,
+    paddingBottom: 6,
+    paddingHorizontal: 8,
+    backgroundColor: "royalblue",
+    borderRadius: 12,
+  },
+  filterText: {
+    fontSize: 18,
+    fontWeight: "700",
+    textAlign: "center",
+    color: "white",
   },
 });
 

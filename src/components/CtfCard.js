@@ -1,30 +1,47 @@
 import React, { useState } from "react";
-import { Share, Pressable, Text, View, StyleSheet } from "react-native";
+import { View, Pressable, Text, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const CtfCard = (props) => {
-  const {
-    navigation,
-    id,
-    title,
-    start,
-    finish,
-    is_marked,
-    ctftime_url,
-    updateEvent,
-  } = props;
-  const [isMarked, setIsMarked] = useState(is_marked);
+export default ({
+  id,
+  is_marked,
+  title,
+  start,
+  finish,
+  description,
+  logo,
+  url,
+  ctftime_url,
+  location,
+  onsite,
+  navigation,
+  actions,
+}) => {
+  const [isMark, setIsMark] = useState(is_marked);
 
-  const toggleIsMarked = (id) => {
-    updateEvent(id, `is_marked=${isMarked ? 0 : 1}`);
-    setIsMarked(isMarked ? 0 : 1);
+  const toggleCtf = (id) => {
+    actions.toggleCtf(id, isMark);
+    setIsMark(!isMark);
   };
 
   return (
     <View style={styles.container}>
       <Pressable
         style={styles.info}
-        onPress={() => navigation.navigate("CtfDetail", { id: id })}
+        onPress={() =>
+          navigation.navigate("CtfDetail", {
+            id,
+            title,
+            start,
+            finish,
+            description,
+            logo,
+            url,
+            ctftime_url,
+            onsite,
+            location,
+          })
+        }
       >
         <Text style={styles.title} numberOfLines={1}>
           {title}
@@ -33,11 +50,11 @@ const CtfCard = (props) => {
           {new Date(start).toDateString()} ~ {new Date(finish).toDateString()}
         </Text>
       </Pressable>
-      <Pressable style={styles.mark} onPress={() => toggleIsMarked(id)}>
+      <Pressable style={styles.mark} onPress={() => toggleCtf(id)}>
         <Ionicons
-          name={isMarked ? "bookmark" : "bookmark-outline"}
+          name={isMark ? "bookmark" : "bookmark-outline"}
           size={24}
-          color={isMarked ? "tomato" : "gray"}
+          color={isMark ? "tomato" : "gray"}
         />
       </Pressable>
     </View>
@@ -68,5 +85,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-export default CtfCard;
