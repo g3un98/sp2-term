@@ -34,9 +34,11 @@ export default ({ ctfs, actions, navigation }) => {
       </Text>
       {ctfs ? (
         <ScrollView>
-          {ctfs.map((ctf) => (
-            <CtfCard key={ctf.id} {...ctf} navigation={navigation} />
-          ))}
+        {ctfs.map((ctf) => {
+          if(ctf.title.indexOf(text) != -1) {
+            return (<CtfCard key={ctf.id} {...ctf} navigation={navigation} />)
+          }
+        })}
         </ScrollView>
       ) : (
         <ActivityIndicator size="large" />
