@@ -7,10 +7,10 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import CtfCard from "../containers/CtfCardContainer";
 
 export default ({ ctfs, actions, navigation }) => {
-
   const [text, setText] = useState('');
 
   useEffect(() => {
@@ -23,25 +23,25 @@ export default ({ ctfs, actions, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={{height: 40}}
-        placeholder="Search ctfs"
-        onChangeText={text => setText(text)}
-        defaultValue={text}
-      />
-      <Text style={{padding: 10, fontSize: 42}}>
-        {text.split(' ').map((word) => word && '🍕').join(' ')}
-      </Text>
-      {ctfs ? (
-        <ScrollView>
-        {ctfs.map((ctf) => {
-          if(ctf.title.indexOf(text) != -1) {
-            return (<CtfCard key={ctf.id} {...ctf} navigation={navigation} />)
-          }
-        })}
-        </ScrollView>
-      ) : (
+      <View style={styles.searchBar}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search ctfs"
+          onChangeText={(text) => setText(text)}
+          defaultValue={text}
+        />
+        <Ionicons name="search" size={24} color="gray" />
+      </View>
+      {ctfs.length == 0 ? (
         <ActivityIndicator size="large" />
+      ) : (
+        <ScrollView>
+          {ctfs.map((ctf) => {
+            if(ctf.title.indexOf(text) != -1) {
+              return (<CtfCard key={ctf.id} {...ctf} navigation={navigation} />)
+            }
+          })}
+        </ScrollView>
       )}
     </View>
   );
@@ -49,6 +49,19 @@ export default ({ ctfs, actions, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  searchBar: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginVertical: 8,
+    marginHorizontal: 6,
+    paddingHorizontal: 12,
+    backgroundColor: "white",
+    borderRadius: 45,
+  },
+  searchInput: {
     flex: 1,
   },
 });

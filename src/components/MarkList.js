@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import CtfCard from "../containers/CtfCardContainer";
 
-export default ({ ctfs, actions }) => {
+export default ({ ctfs, actions, navigation }) => {
   return (
     <View style={styles.container}>
       {ctfs.length == 0 ? (
@@ -17,7 +17,7 @@ export default ({ ctfs, actions }) => {
         <ScrollView>
           {ctfs.map((ctf) => {
             if (ctf.is_marked) {
-              return <CtfCard key={ctf.id} {...ctf} />;
+              return <CtfCard key={ctf.id} {...ctf} navigation={navigation} />;
             }
           })}
         </ScrollView>

@@ -4,7 +4,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Ctfs from "./CtfsTabContainer";
 import Marked from "./MarkedTabContainer";
-import Search from "./SearchTabContainer";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,8 +19,6 @@ export default () => {
               iconName = focused ? "flag" : "flag-outline";
             } else if (route.name === "Marked") {
               iconName = focused ? "bookmark" : "bookmark-outline";
-            } else if (route.name === "Search") {
-              iconName = focused ? "search" : "search-outline";
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -33,7 +30,6 @@ export default () => {
       >
         <Tab.Screen name="Ctfs" component={Ctfs} options={{unmountOnBlur: true,}} />
         <Tab.Screen name="Marked" component={Marked} />
-        <Tab.Screen name="Search" component={Search} />
       </Tab.Navigator>
     </NavigationContainer>
   );

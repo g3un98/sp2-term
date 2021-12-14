@@ -99,29 +99,29 @@ export const fetchCtf =
           duration += Number(ctf.duration.days) * 12;
 
           sqls.push(`INSERT OR IGNORE INTO event VALUES(
-          ${ctf.organizers[0].id},
-          ${ctf.onsite ? 1 : 0},
-          '${ctf.finish.replace(/\'/gm, "''")}',
-          '${ctf.description.replace(/\'/gm, "''")}',
-          ${ctf.weight},
-          '${ctf.title.replace(/\'/gm, "''")}',
-          '${ctf.url.replace(/\'/gm, "''")}',
-          ${ctf.is_votable_now ? 1 : 0},
-          '${ctf.restrictions.replace(/\'/gm, "''")}',
-          '${ctf.format.replace(/\'/gm, "''")}',
-          '${ctf.start.replace(/\'/gm, "''")}',
-          ${ctf.participants},
-          '${ctf.ctftime_url.replace(/\'/gm, "''")}',
-          '${ctf.location.replace(/\'/gm, "''")}',
-          '${ctf.live_feed.replace(/\'/gm, "''")}',
-          ${ctf.public_votable ? 1 : 0},
-          ${duration},
-          '${ctf.logo.replace(/\'/gm, "''")}',
-          ${ctf.format_id},
-          ${ctf.id},
-          ${ctf.ctf_id},
-          0
-        )`);
+            ${ctf.organizers[0].id},
+            ${ctf.onsite ? 1 : 0},
+            '${ctf.finish.replace(/\'/gm, "''")}',
+            '${ctf.description.replace(/\'/gm, "''")}',
+            ${ctf.weight},
+            '${ctf.title.replace(/\'/gm, "''")}',
+            '${ctf.url.replace(/\'/gm, "''")}',
+            ${ctf.is_votable_now ? 1 : 0},
+            '${ctf.restrictions.replace(/\'/gm, "''")}',
+            '${ctf.format.replace(/\'/gm, "''")}',
+            '${ctf.start.replace(/\'/gm, "''")}',
+            ${ctf.participants},
+            '${ctf.ctftime_url.replace(/\'/gm, "''")}',
+            '${ctf.location.replace(/\'/gm, "''")}',
+            '${ctf.live_feed.replace(/\'/gm, "''")}',
+            ${ctf.public_votable ? 1 : 0},
+            ${duration},
+            '${ctf.logo.replace(/\'/gm, "''")}',
+            ${ctf.format_id},
+            ${ctf.id},
+            ${ctf.ctf_id},
+            0
+          )`);
 
           sqls.map(async (sql) => {
             await txn.executeSql(
