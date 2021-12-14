@@ -34,7 +34,7 @@ export default () => {
           headerShown: false,
         })}
       >
-        <Tab.Screen name="Ctfs" component={Ctfs} />
+        <Tab.Screen name="Ctfs" component={Ctfs} options={{unmountOnBlur: true,}} />
         <Tab.Screen name="Marked" component={Marked} />
         <Tab.Screen name="Notifications" component={Notifications} />
         <Tab.Screen name="Settings" component={Settings} />
